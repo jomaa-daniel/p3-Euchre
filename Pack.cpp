@@ -14,57 +14,57 @@ Pack::Pack() {
   // card objects  
   this->next = 0;
 
-  Card nineSpade(RANK_NINE, SUIT_SPADES); 
+  Card nineSpade(Card::RANK_NINE, Card::SUIT_SPADES); 
   cards[0] = nineSpade;
-  Card tenSpace(RANK_TEN, SUIT_SPADES); 
+  Card tenSpace(Card::RANK_TEN, Card::SUIT_SPADES); 
   cards[1] = tenSpace;
-  Card jackSpade(RANK_JACK,SUIT_SPADES);
+  Card jackSpade(Card::RANK_JACK,Card::SUIT_SPADES);
   cards[2] = jackSpade;
-  Card queenSpade(RANK_QUEEN, SUIT_SPADE);
-  card[3] = queenSpade;
-  Card kingSpade(RANK_KING,SUIT_SPADES);
-  card[4] = kingSpade;
-  Card aceSpade(RANK_ACE, SUIT_SPADE);
-  card[5] = aceSpade;
+  Card queenSpade(Card::RANK_QUEEN, Card::SUIT_SPADE);
+  cards[3] = queenSpade;
+  Card kingSpade(Card::RANK_KING,Card::SUIT_SPADES);
+  cards[4] = kingSpade;
+  Card aceSpade(Card::RANK_ACE, Card::SUIT_SPADE);
+  cards[5] = aceSpade;
 
-  Card nineHearts(RANK_NINE, SUIT_HEARTS);
+  Card nineHearts(Card::RANK_NINE, Card::SUIT_HEARTS);
   cards[6] = nineHearts;
-  Card tenHearts(RANK_TEN, SUIT_HEARTS);
+  Card tenHearts(Card::RANK_TEN, Card::SUIT_HEARTS);
   cards[7] = tenHearts;
-  Card jackHearts(RANK_JACK,SUIT_HEARTS);
+  Card jackHearts(Card::RANK_JACK,Card::SUIT_HEARTS);
   cards[8] = jackHearts;
-  Card queenHearts(RANK_QUEEN, SUIT_HEARTS);
+  Card queenHearts(Card::RANK_QUEEN, Card::SUIT_HEARTS);
   cards[9] = queenHearts;
-  Card kingHearts(RANK_KING,SUIT_HEARTS);
+  Card kingHearts(Card::RANK_KING,Card::SUIT_HEARTS);
   cards[10] = kingHearts;
-  Card aceHearts(RANK_ACE, SUIT_HEARTS);
+  Card aceHearts(Card::RANK_ACE, Card::SUIT_HEARTS);
   cards[11] = aceHearts;
 
-  Card nineClubs(RANK_NINE, SUIT_CLUBS);
+  Card nineClubs(Card::RANK_NINE, Card::SUIT_CLUBS);
   cards[12] = nineClubs;
-  Card tenClubs(RANK_TEN, SUIT_CLUBS);
+  Card tenClubs(Card::RANK_TEN, Card::SUIT_CLUBS);
   cards[13] = tenClubs;
-  Card jackClubs(RANK_JACK,SUIT_CLUBS);
+  Card jackClubs(Card::RANK_JACK,Card::SUIT_CLUBS);
   cards[14] = jackClubs;
-  Card queenClubs(RANK_QUEEN, SUIT_CLUBS);
+  Card queenClubs(Card::RANK_QUEEN, Card::SUIT_CLUBS);
   cards[15] = queenClubs;
-  Card kingClubs(RANK_KING,SUIT_CLUBS);
+  Card kingClubs(Card::RANK_KING,Card::SUIT_CLUBS);
   cards[16] = kingClubs;
-  Card aceClubs(RANK_ACE, SUIT_CLUBS);
+  Card aceClubs(Card::RANK_ACE, Card::SUIT_CLUBS);
   cards[17] = aceClubs;
 
-  Card nineDiamonds(RANK_NINE, SUIT_DIAMONDS);
-  card[18] = nineDiamonds;
-  Card tenDiamonds(RANK_TEN, SUIT_DIAMONDS);
-  card[19] = tenDiamonds;
-  Card jackDiamonds(RANK_JACK,SUIT_DIAMONDS);
-  card[20] = jackDiamonds;
-  Card queenDiamonds(RANK_QUEEN, SUIT_DIAMONDS);
-  card[21] = queenDiamonds;
-  Card kingDiamonds(RANK_KING,SUIT_DIAMONDS);
-  card[22] = kingDiamonds;
-  Card aceDiamonds(RANK_ACE, SUIT_DIAMONDS);
-  card[23] = aceDiamonds;
+  Card nineDiamonds(Card::RANK_NINE, Card::SUIT_DIAMONDS);
+  cards[18] = nineDiamonds;
+  Card tenDiamonds(Card::RANK_TEN, Card::SUIT_DIAMONDS);
+  cards[19] = tenDiamonds;
+  Card jackDiamonds(Card::RANK_JACK,Card::SUIT_DIAMONDS);
+  cards[20] = jackDiamonds;
+  Card queenDiamonds(Card::RANK_QUEEN, Card::SUIT_DIAMONDS);
+  cards[21] = queenDiamonds;
+  Card kingDiamonds(Card::RANK_KING,Card::SUIT_DIAMONDS);
+  cards[22] = kingDiamonds;
+  Card aceDiamonds(Card::RANK_ACE, Card::SUIT_DIAMONDS);
+  cards[23] = aceDiamonds;
 }
 
 // REQUIRES: pack_input contains a representation of a Pack in the
