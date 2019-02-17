@@ -3,7 +3,8 @@
 //CARD CONSTRUCTOR
  //EFFECTS Initializes Card to the Two of Spades
 Card::Card() {
-	assert(false);
+	rank = RANK_TWO;
+	suit = SUIT_SPADES;
 }
 
 //REQUIRES rank is one of "Two", "Three", "Four", "Five", "Six", "Seven",
@@ -11,18 +12,19 @@ Card::Card() {
 //  suit is one of "Spades", "Hearts", "Clubs", "Diamonds"
 //EFFECTS Initializes Card to specified rank and suit
 Card::Card(const std::string &rank_in, const std::string &suit_in) {
-	assert(false);
+	rank = rank_in;
+	suit = suit_in;
 }
 
 //REQUIRES trump is a valid suit
  //EFFECTS Returns the suit
  //HINT: the left bower is the trump suit!
 std::string Card::get_suit() const {
-	assert(false);
+	return suit;
 }
 
 std::string Card::get_rank() const {
-	assert(false);
+	return rank;
 }
 
 //REQUIRES trump is a valid suit
