@@ -20,11 +20,11 @@ Pack::Pack() {
   cards[1] = tenSpace;
   Card jackSpade(Card::RANK_JACK,Card::SUIT_SPADES);
   cards[2] = jackSpade;
-  Card queenSpade(Card::RANK_QUEEN, Card::SUIT_SPADE);
+  Card queenSpade(Card::RANK_QUEEN, Card::SUIT_SPADES);
   cards[3] = queenSpade;
   Card kingSpade(Card::RANK_KING,Card::SUIT_SPADES);
   cards[4] = kingSpade;
-  Card aceSpade(Card::RANK_ACE, Card::SUIT_SPADE);
+  Card aceSpade(Card::RANK_ACE, Card::SUIT_SPADES);
   cards[5] = aceSpade;
 
   Card nineHearts(Card::RANK_NINE, Card::SUIT_HEARTS);
