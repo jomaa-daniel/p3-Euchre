@@ -102,29 +102,23 @@ void Pack::reset() {
 void Pack::shuffle() {
   
   //TODO make sure there are deep copies
-
-  const int SEVEN = 7;
-  std::array<Card, PACK_SIZE> cpyArray;
-
-  int i = 0;
-  int j = 11;
-
-  for(int seven = 0; i < SEVEN; seven++){
-
-    i = 0;
-    j = 11;
-  
-    for(int k = 0; k < cpyArray.size(); k+=2){
-
-      cpyArray[k] = cards[j];
-      cpyArray[k + 1] = cards[i];
-
-      i++;
-      j++;
-
+  //Puts every even element in its place and every odd element in its place 7 times.
+  for(int z = 0; z < 7 ; z++){
+    std::array<Card, PACK_SIZE> cpyArray;
+    int evensIndex = 12;
+    int oddsIndex = 0;
+    for(int i = 0; i < PACK_SIZE;i++){
+      if( i%2 == 0){
+        cpyArray[i] = cards[evensIndex]; 
+        evensIndex++;
+      }
+      else{
+        cpyArray[i] = cards[oddsIndex];
+        oddsIndex++;
+      }
     }
-    this->cards = cpyArray;
-  }
+    cards = cpyArray;
+  }  
 }
 
 // EFFECTS: returns true if there are no more cards left in the pack
