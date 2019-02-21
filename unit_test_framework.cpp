@@ -125,8 +125,12 @@ int TestSuite::run_tests(int argc, char** argv) {
     }
 
     if (num_failures == 0 and num_errors == 0) {
+		system("pause");
+
         return 0;
     }
+	system("pause");
+
     return 1;
 }
 

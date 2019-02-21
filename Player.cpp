@@ -109,9 +109,27 @@ bool Simple::make_trump(const Card &upcard, bool is_dealer,
 //REQUIRES Player has at least one card
 //EFFECTS  Player adds one card to hand and removes one card from hand.
 void Simple::add_and_discard(const Card &upcard){
+
     assert(hand.size() > 1);    
     
-      
+	//get the lowest card to remove it
+	Card min = hand[0];
+	int minIndex = 0;
+
+	for (int i = 0; i < hand.size(); i++)
+	{
+		if (min < hand[i])
+		{
+			min = hand[i];
+			minIndex = i;
+		}
+	}
+
+	//TODO make sure there is no off by one error here
+	hand.erase(hand.begin() + minIndex);
+
+
+	
 }
 
 
