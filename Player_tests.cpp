@@ -7,6 +7,8 @@
 
 using namespace std;
 
+const std::string SMPL = "Simple";
+
 TEST(test_player_get_name) {
     Player * alice = Player_factory("Alice", "Simple");
     ASSERT_EQUAL("Alice", alice->get_name());
@@ -16,6 +18,8 @@ TEST(test_player_get_name) {
 
 TEST(test_make_trump) {
 	
+	Player *simple = Player_factory("BOT", SMPL);
+
 
 
 }

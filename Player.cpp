@@ -12,8 +12,11 @@ private:
     /* data */
 public:
 
-    Simple(std::string &in_name): hand(MAX_HAND_SIZE),
-    name(in_name) {}
+    Simple( const std::string &in_name):name(in_name),
+		hand(MAX_HAND_SIZE) {}
+
+	//EFFECTS returns player's name
+	virtual const std::string & get_name() const;
 
     //REQUIRES player has less than MAX_HAND_SIZE cards
     //EFFECTS  adds Card c to Player's hand    
@@ -25,7 +28,7 @@ public:
     //  change order_up_suit to desired suit.  If Player wishes to pass, then do
     //  not modify order_up_suit and return false.
     bool make_trump(const Card &upcard, bool is_dealer,
-                int round, std::string &order_up_suit);
+                int round, std::string &order_up_suit) const;
 
     //REQUIRES Player has at least one card
     //EFFECTS  Player adds one card to hand and removes one card from hand.
@@ -45,6 +48,17 @@ public:
     ~Simple();
 };
 
+//  EFFECTS: Returns a pointer to a player with the given name and strategy
+	//To create an object that won't go out of scope when the function returns,
+	//use "return new Simple(name)" or "return new Human(name)"
+	//Don't forget to call "delete" on each Player* after the game is over
+Player * Player_factory(const std::string &name, const std::string &strategy) {
+
+	if (strategy == "Simple") return new Simple(name);
+
+	return NULL;
+}
+
 
 //REQUIRES player has less than MAX_HAND_SIZE cards
 //EFFECTS  adds Card c to Player's hand    
@@ -63,7 +77,7 @@ void Simple::add_card(const Card &c){
 
 //TODO:keep track of round in driver?
 bool Simple::make_trump(const Card &upcard, bool is_dealer,
-            int round, std::string &order_up_suit){
+            int round, std::string &order_up_suit) const {
 
     assert(round == 1 or round == 2);
 
