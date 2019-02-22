@@ -115,7 +115,7 @@ void Simple::add_and_discard(const Card &upcard){
 	//get the lowest card to remove it
 	Card min = hand[0];
 	int minIndex = 0;
-
+	//note that the removal does not consider trump
 	for (int i = 0; i < hand.size(); i++)
 	{
 		if (min < hand[i])
@@ -128,7 +128,7 @@ void Simple::add_and_discard(const Card &upcard){
 	//TODO make sure there is no off by one error here
 	hand.erase(hand.begin() + minIndex);
 
-
+	hand.push_back(upcard);
 	
 }
 

@@ -14,6 +14,12 @@ TEST(test_player_get_name) {
     delete alice;
 }
 
+TEST(test_make_trump) {
+	
+
+
+}
+
 // Add more tests here
 
 TEST_MAIN()
