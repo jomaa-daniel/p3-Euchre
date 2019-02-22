@@ -16,7 +16,7 @@ public:
 		hand(MAX_HAND_SIZE) {}
 
 	//EFFECTS returns player's name
-	virtual const std::string & get_name() const;
+	virtual const std::string & get_name() const { return name; }
 
     //REQUIRES player has less than MAX_HAND_SIZE cards
     //EFFECTS  adds Card c to Player's hand    
