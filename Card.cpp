@@ -187,6 +187,8 @@ std::ostream & operator<<(std::ostream &os, const Card &card){
 // order, as described in the spec.
 bool Card_less(const Card &a, const Card &b, const std::string &trump)
 {
+	if(a == b) return false;
+	
 	//check for bowers
 	if(a.is_right_bower(trump)) return false;
 	if(b.is_right_bower(trump)) return true;
@@ -224,7 +226,9 @@ bool Card_less(const Card &a, const Card &b, const std::string &trump)
 
 bool Card_less(const Card &a, const Card &b, const Card &led_card,
                const std::string &trump){
-				   
+		
+	if(a == b) return false;
+
 	//check for bowers
 	if(a.is_right_bower(trump)) return false;
 	if(b.is_right_bower(trump)) return true;

@@ -23,6 +23,8 @@ TEST(test_add_card) {
 	Card card;
 
 	simple->add_card(card);
+	
+	delete simple;
 
 	//use hearts as an example trump
 //	play_card(card, "Hearts");
@@ -32,11 +34,12 @@ TEST(test_make_trump_round1_nondealer_ordrup) {
 	//this is called upcasting
 	Player *simple = Player_factory("BOT", SMPL);
 
-	Card ace_spades;
+	Card ace_spades("Ace", "Spades");
 	Card jack_diamonds("Jack", "Diamonds");
 	Card ace_hearts("Ace", "Hearts");
 	Card nine_clubs("Nine", "Clubs");
 	Card jack_spades("Jack", "Spades");
+
 	
 
 	//create a player without 2 of same suit
@@ -44,13 +47,16 @@ TEST(test_make_trump_round1_nondealer_ordrup) {
 	simple->add_card(jack_diamonds);
 	simple->add_card(ace_hearts);
 	simple->add_card(nine_clubs);
+	simple->add_card(jack_spades);
 
-	Card upcard("Ace", "Diamonds");
+	
+	Card upcard("King", "Spades");
 
 	string order_up_suit;
 
 	ASSERT_TRUE(simple->make_trump(upcard, false, 1, order_up_suit));
-	ASSERT_EQUAL(order_up_suit, "Diamonds");
+	ASSERT_EQUAL(order_up_suit, "Spades");
+	delete simple;
 }
 
 // Add more tests here
