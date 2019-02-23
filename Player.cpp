@@ -1,8 +1,9 @@
 #include "Player.h"
 #include <cassert>
-#include <algorithn>
+#include <algorithm>
 #include <vector>
 
+/////////////////////////// SIMPLE PLAYER CLASS //////////////////////////
 class Simple: public Player
 {
 private:
@@ -49,6 +50,7 @@ public:
     //TODO Maybe destructor needed
 };
 
+/////////////////////////// SIMPLE PLAYER IMPLEMENTATION //////////////////////
 
 //REQUIRES player has less than MAX_HAND_SIZE cards
 //EFFECTS  adds Card c to Player's hand    
@@ -145,29 +147,8 @@ void Simple::add_and_discard(const Card &upcard){
 //  is removed the player's hand.
 Card Simple::lead_card(const std::string &trump){
 
-//TODO shits broke
-    Card max = hand[0];
-    Card maxTrump = hand[0];
-    int maxIndex = 0;
-    int maxtrmpIndex = 0;
-    int numTrumps;
-
-    for(int i = 0; i < int(hand.size()); i++) 
-    {
-        if(!hand[i].is_trump(trump) and (hand[i] > max))
-        {
-            max = hand[i];
-            maxIndex = i;
-        }
-        else if (hand[i].is_trump(trump) and (hand[i] > maxTrump))
-        {
-            maxTrump = hand[i];
-            maxtrmpIndex = i;
-            numTrumps++;
-        }
-    }
-    
-
+    Card a;
+    return a;
 }
         
 
@@ -177,77 +158,9 @@ Card Simple::lead_card(const std::string &trump){
 Card Simple::play_card(const Card &led_card, const std::string &trump){
 //Untested.
 
-   bool haveLed = false;
-   bool haveTrump = false;
-   int highIndex = 0;
-   Card highCard = hand[0];
-   
-    //check for the highest ultimate card
-    //flag it if there exists a led card in the hand
-   for(int i=0; i < int(hand.size()); i++){
-       if(Card_less(highCard, hand[i], led_card, trump)){
-         highCard = hand[i];
-         highIndex = i;
-       } 
-        if(hand[i].get_suit(trump) == trump) haveTrump = true;
+ Card a;
+ return a;
     
-        if(hand[i].get_suit(trump) == led_card.get_suit(trump)) haveLed = true;
-
-   }
-  
-    //if the highest card is a led card play it
-    if(highCard.get_suit(trump) == led_card.get_suit(trump))
-    {
-        hand.erase(hand.begin() + highIndex);
-        return highCard;
-    }
-    
-    //if the highest card is a trump card then there are two options:
-    //if there is a led card go back and get it
-    // if there is no led card, trump should be played
-    if(highCard.is_trump(trump))
-    {
-        if(haveLed)
-        { // go back and get the highest led
-            highCard = hand[0];
-            highIndex = 0;
-            for(int i = 0; i < int(hand.size()); i++){
-                if(hand[i].get_suit(trump) == trump) continue;
-                else{
-                    if(Card_less(highCard,hand[i],led_card,trump)){
-                        highCard = hand[i];
-                        highIndex = i;
-                    }
-                }
-            }
-        }
-        else
-        {
-            //play trump
-            hand.erase(hand.begin() + highIndex);
-            return highCard;
-        }
-    }
-    
-    Card leastCard = hand[0];
-    int lowestIndex= 0;
-
-    if(!haveLed and !haveTrump)
-    {
-        //for loop and find least value
-        for(int i = 0; i < int(hand.size()); i++)
-        {
-            if(Card_less(hand[i], leastCard, led_card, trump))
-            {
-                leastCard = hand[i];
-                lowestIndex = i;
-            }
-        }
-        
-        hand.erase(hand.begin() + lowestIndex);
-        return leastCard;
-    }  
-
 }
 
 /////////////////////////// HUMAN CLASS ///////////////////////
@@ -297,6 +210,8 @@ private:
 
 ////////////////////// HUMAN IMPLEMENTATION ////////////////
 
+
+
 void Human::add_card(const Card &c)
 {
     assert(int(hand.size()) < MAX_HAND_SIZE);
@@ -307,13 +222,15 @@ void Human::add_card(const Card &c)
 bool Human::make_trump(const Card &upcard, bool is_dealer,
                 int round, std::string &order_up_suit) const
 {
-    std::string input;
-    std::sort(hand.begin(), hand.end());
+    std::vector<Card> sortHand = hand;
 
-    for(int i = 0; i < int(hand.size()); i++){
-        std::cout << "Human player " << name <<  "\'s hand: ["<<i<<"] "<< hand[i] << std::endl;
+    std::string input;
+    std::sort(sortHand.begin(), sortHand.end());
+
+    for(int i = 0; i < int(sortHand.size()); i++){
+        std::cout << "Human player " << name <<  "\'s hand: ["<<i<<"] "<< sortHand[i] << std::endl;
     }
-    std::cout << "Human player" << name <<", please enter a suit, or \"pass\":" << std:endl;
+    std::cout << "Human player" << name <<", please enter a suit, or \"pass\":" << std::endl;
     std::cin >> input;
     if(input == "pass")
     {
@@ -324,16 +241,16 @@ bool Human::make_trump(const Card &upcard, bool is_dealer,
         switch (input[0])
         {
             case 'S':
-                order_up_suit = SUIT_SPADES;
+                order_up_suit = Card::SUIT_SPADES;
                 break;
             case 'H':
-                order_up_suit = SUIT_HEARTS;
+                order_up_suit = Card::SUIT_HEARTS;
                 break;
             case 'C':
-                order_up_suit = SUIT_CLUBS;
+                order_up_suit = Card::SUIT_CLUBS;
                 break;
             case 'D': 
-                order_up_suit = SUIT_DIAMONDS;
+                order_up_suit = Card::SUIT_DIAMONDS;
             default:
                 break;
         }
@@ -341,6 +258,22 @@ bool Human::make_trump(const Card &upcard, bool is_dealer,
     }
     
     
+}
+
+void Human::add_and_discard(const Card &upcard)
+{
+    assert(false);
+}
+
+Card Human::lead_card(const std::string &trump)
+{
+    Card a;
+    return a;
+}
+
+Card Human::play_card(const Card &led_card, const std::string &trump){
+    Card a;
+    return a;
 }
 
 //////////////////////// player factory /////////////////////

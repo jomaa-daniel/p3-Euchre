@@ -195,25 +195,24 @@ bool Card_less(const Card &a, const Card &b, const std::string &trump)
 	if(a.is_left_bower(trump)) return false;
 	if(b.is_left_bower(trump)) return true;
 
-	//if they are the same suit compare the ranks
-	if(a.get_suit() == b.get_suit())
-	{
-		if(a < b) return true;
-		else return false;
-	}
-	//if one of them is a trump return
-	
-	if(a.is_trump(trump)) return false;
-	if(b.is_trump(trump)) return true;
+	//check if ONE is a trump
+	if(a.is_trump(trump) && !b.is_trump(trump)) return false;
+	if(b.is_trump(trump) && !a.is_trump(trump)) return true;
+
+	//compare the ranks
+	if(a < b) return true;
+	if(a > b) return false;
+
+	//at this point they are the same rank, possibly the same suit	
 
 	// checking for D>C>H>S
 	int aIndex = 0;
 	int bIndex = 0;
 	
 	for(int i = 0; i < NUM_SUITS; i++){
-		if(a.get_suit() == SUIT_NAMES_BY_WEIGHT[i])
+		if(a.get_suit(trump) == SUIT_NAMES_BY_WEIGHT[i])
 		aIndex = i;
-		else if(b.get_suit() == SUIT_NAMES_BY_WEIGHT[i])
+		else if(b.get_suit(trump) == SUIT_NAMES_BY_WEIGHT[i])
 		bIndex = i;
 	}
 
@@ -246,7 +245,7 @@ bool Card_less(const Card &a, const Card &b, const Card &led_card,
 	if(a.is_trump(trump)) return false;
 	if(b.is_trump(trump)) return true;
 
-    //leds
+  //leds
 	if(a.get_suit() == led_card.get_suit()) return false;
 	if(b.get_suit() == led_card.get_suit()) return true;
 
