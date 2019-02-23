@@ -186,9 +186,7 @@ std::ostream & operator<<(std::ostream &os, const Card &card){
 //EFFECTS Returns true if a is lower value than b.  Uses trump to determine
 // order, as described in the spec.
 bool Card_less(const Card &a, const Card &b, const std::string &trump)
-{
-	if(a == b) return false;
-	
+{	
 	//check for bowers
 	if(a.is_right_bower(trump)) return false;
 	if(b.is_right_bower(trump)) return true;

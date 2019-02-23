@@ -3,6 +3,27 @@
 #include <algorithm>
 #include <vector>
 
+
+static void cardSort(std::vector<Card> &hand, const std::string &trump){
+    
+    Card temp;    
+
+    for(int i = 0; i<int(hand.size()) - 1;i++){
+        
+        for(int j = 0; j < int(hand.size()) - i - 1; j++)
+        {
+            if(Card_less(hand[j], hand[j+1], trump))
+            {
+                temp = hand[j];
+                hand[j] = hand[j + 1];
+                hand[j + 1] = temp;
+            }
+        }    
+	
+	}
+}
+
+
 /////////////////////////// SIMPLE PLAYER CLASS //////////////////////////
 class Simple: public Player
 {
@@ -13,7 +34,6 @@ private:
 
     /* data */
 public:
-
     Simple( const std::string &in_name):
     name(in_name) {}
 
@@ -112,33 +132,18 @@ bool Simple::make_trump(const Card &upcard, bool is_dealer,
 //REQUIRES Player has at least one card
 //EFFECTS  Player adds one card to hand and removes one card from hand.
 void Simple::add_and_discard(const Card &upcard){
-    //should work.
-    std::string trump = upcard.get_suit();
-
-    assert(hand.size() > 1);    
     
-	//get the lowest card to remove it
-	Card min = hand[0];
-	int minIndex = 0;
-	
-	for (int i = 0; i < hand.size(); i++)
-	{
-		if (Card_less(hand[i],min,trump))
-		{
-			min = hand[i];
-			minIndex = i;
-		}
-	}
-
-	hand.erase(hand.begin() + minIndex);
-
-    if(Card_less(upcard, min, trump))
-    {
-        return;
-    }
+    std::vector<Card> srtHand = hand;
+    srtHand.push_back(upcard);
     
-	hand.push_back(upcard);
-	
+    cardSort(srtHand,upcard.get_suit()); 
+    Card smallCard = srtHand[(srtHand.size()-1)];
+
+    if(smallCard == upcard)return;
+
+    srtHand.pop_back();
+
+    hand = srtHand;
 }
 
 //REQUIRES Player has at least one card, trump is a valid suit
@@ -146,9 +151,37 @@ void Simple::add_and_discard(const Card &upcard){
 //  "Lead" means to play the first Card in a trick.  The card
 //  is removed the player's hand.
 Card Simple::lead_card(const std::string &trump){
+    
+    std::vector<Card> srtHand = hand;
+    cardSort(srtHand,trump);
+    int highestCardIndex = -1;
+    Card playedCard;
 
-    Card a;
-    return a;
+    //find the first non-trump card
+    //this would be the highest card
+    for(int i = 0; i < int(srtHand.size()); i++)
+    {
+        if(srtHand[i].is_trump(trump)) continue;
+        highestCardIndex = i;
+        break;
+    }
+    //if the deck is all trump, then highestcardindex would not
+    //be changed, automatically play the highest card because
+    // we know that it is trump
+    if(highestCardIndex == -1){
+        playedCard = srtHand[0];
+        srtHand.erase(srtHand.begin());
+        hand = srtHand;
+        return playedCard;
+    }
+    //return the highest card, this would be the highest non trump
+    // from the earlier for loop
+    else{
+        playedCard = srtHand[highestCardIndex];
+        srtHand.erase(srtHand.begin() + highestCardIndex);
+        hand = srtHand;
+        return playedCard;
+    }
 }
         
 
@@ -156,11 +189,52 @@ Card Simple::lead_card(const std::string &trump){
 //EFFECTS  Plays one Card from Player's hand according to their strategy.
 //  The card is removed from the player's hand.
 Card Simple::play_card(const Card &led_card, const std::string &trump){
-//Untested.
+    int highestLedIndex = -1;
+    int highestTrumpIndex = -1;
+    Card playedCard;
 
- Card a;
- return a;
+    std::vector<Card> srtHand = hand;
+    cardSort(srtHand,trump);    
     
+    //find the highest non-trump card that is also the led card
+    for(int i = 0; i < int(srtHand.size()); i++)
+    {
+        if(srtHand[i].get_suit(trump) == led_card.get_suit(trump)){
+            highestLedIndex = i;
+            break;
+        }
+    }
+    //play the highest card
+    if(highestLedIndex != -1){
+        playedCard = srtHand[highestLedIndex];
+        srtHand.erase(hand.begin() + highestLedIndex);
+        hand = srtHand;
+        return playedCard;
+    }
+    
+    //No led cards, must find highest trump if available
+
+    for(int i = 0; i < int(srtHand.size()); i++)
+    {
+        if(srtHand[i].get_suit(trump) == trump){
+            highestTrumpIndex = i;
+            break;
+        }
+    }
+    if(highestTrumpIndex != -1){
+        playedCard = srtHand[highestTrumpIndex];
+        srtHand.erase(srtHand.begin() + highestTrumpIndex);
+        hand = srtHand;
+        return playedCard;
+    }
+
+    //at this point there are no trumps so we need to just return the 
+    //  lowest card in the deck
+    playedCard = srtHand[srtHand.size() - 1];
+    srtHand.erase(srtHand.end());
+    hand = srtHand;
+    return playedCard;
+
 }
 
 /////////////////////////// HUMAN CLASS ///////////////////////
@@ -202,9 +276,8 @@ public:
     Card play_card(const Card &led_card, const std::string &trump);
 
 private:
-
-    std::vector<Card> hand;
     std::string name;
+    std::vector<Card> hand;
 };
 
 
@@ -260,6 +333,8 @@ bool Human::make_trump(const Card &upcard, bool is_dealer,
     
 }
 
+//add a card, then discard the lowest one even, consider the upcard as
+// smallest
 void Human::add_and_discard(const Card &upcard)
 {
     assert(false);

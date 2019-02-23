@@ -10,26 +10,7 @@ using namespace std;
 const std::string SMPL = "Simple";
 
 
-void cardSort(std::vector<Card> &hand, std::string &trump){
-    
-    Card temp;    
 
-    for(int i = 0; i<int(hand.size()) - 1;i++){
-        
-        for(int j = 0; j < int(hand.size()) - i - 1; j++)
-        {
-            if(Card_less(hand[j], hand[j+1], trump))
-            {
-                temp = hand[j];
-                hand[j] = hand[j + 1];
-                hand[j + 1] = temp;
-            }
-        }    
-
-	
-	
-	}
-}
 
 TEST(test_player_get_name) {
     Player * alice = Player_factory("Alice", "Simple");
@@ -80,34 +61,85 @@ TEST(test_make_trump_round1_nondealer_ordrup) {
 	delete simple;
 }
 
-TEST(test_sorting_function){
+
+TEST(test_simple_Constructor){
+	Player *simple = Player_factory("Sally", SMPL);
+	ASSERT_EQUAL(simple->get_name(),"Sally");
+	delete simple;
+}
+
+
+TEST(test_simple_add_card)
+{
+	Player *simple = Player_factory("Sally", SMPL);
+
+	Card two_spades;
+	Card jack_spades("Jack", "Spades");
+	simple->add_card(two_spades);
 	
-	Card nine_clubs("Queen", "Diamonds");
-	Card jack_diamonds("Jack", "Hearts");
-	Card ace_hearts("King", "Hearts");
-	Card ace_spades("Jack", "Diamonds");
-	Card jack_spades("King", "Spades");
+
+	ASSERT_EQUAL(simple->play_card(jack_spades,"Hearts"),two_spades);
+	delete simple;
+}
+
+TEST(test_simple_make_trump)
+{
+	
+}
+
+// TEST(test_simple_add_and_discard){
+// 	Player *simple = Player_factory("Sally", SMPL);
+	
+// 	Card two_spades;
+// 	Card jack_hearts("Jack", "Hearts");
+// 	Card queen_diamonds("Queen", "Diamonds");
+// 	Card king_diamonds("King", "Diamonds");
+// 	Card nine_hearts("Nine", "Hearts");
+
+// 	Card upcard("Ace", "Hearts");
+// 	//pick up the upcard and drop two spades
+// 	simple->add_and_discard(upcard);
+
+// 	static_cast<
+
+// 	ASSERT_EQUAL(simple->hand[4], two_spades);	
+	
+	
+// }
+
+TEST(test_simple_lead_card){
+
+Player *simple = Player_factory("BOT", SMPL);
 
 
-	std::vector<Card> hand;
-	hand.push_back(ace_spades);
-	hand.push_back(jack_diamonds);
-	hand.push_back(ace_hearts);
-	hand.push_back(nine_clubs);
-	hand.push_back(jack_spades);
+	Card ace_spades("Ace", "Club");
+	Card jack_diamonds("Jack", "Diamonds");
+	Card ace_hearts("Ace", "Hearts");
+	Card nine_clubs("Jack", "Clubs");
+	Card jack_spades("Nine", "Spades");
 
 	std::string trump = "Hearts";
+	
+	simple->add_card(ace_spades);
+	simple->add_card(jack_diamonds);
+	simple->add_card(ace_hearts);
+	simple->add_card(nine_clubs);
+	simple->add_card(jack_spades);
 
-	for(int i = 0; i<int(hand.size());i++){
-	std::cout << hand[i] << std::endl;
-	}
+	ASSERT_EQUAL(simple->play_card(ace_spades,trump),ace_spades);
 
-	cardSort(hand, trump);
 
-	// for(int i = 0; i<int(hand.size());i++){
-	// std::cout << hand[i] << std::endl;
-	// }
+	delete simple;
 }
+
+// TEST(test_simple_play_card){
+
+
+// }
+
+
+
+
 // Add more tests here
 
 TEST_MAIN()
