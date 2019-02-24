@@ -103,8 +103,8 @@ TEST(test_play_card_lead)
 	simple->add_card(nine_spades);
 	//NATURE: 
 	// the led card is the left bower
-	// the highest card should be the right bower, jack hearts
-	ASSERT_EQUAL(simple->play_card(led_card, trump), jack_hearts);
+	// the highest card should be the right bower, jack hearts		
+	ASSERT_EQUAL(simple->lead_card(trump), ace_club);
 
 
 	delete simple;
@@ -252,18 +252,6 @@ TEST(test_simple_lead_card){
 
 /////////////////// HUMAN TESTS ////////////////////
 
-TEST(test_human_add_card){
-	Player *human = Player_factory("Bob", "Human");
-
-	Card two_spades;
-	Card led_card("Ace", "Spades");
-
-	std::string trump = "Clubs";
-
-	human->add_card(two_spades);
-
-	ASSERT_EQUAL(human->play_card(led_card, trump),two_spades )
-}
 
 
 
