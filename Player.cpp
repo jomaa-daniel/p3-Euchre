@@ -99,7 +99,6 @@ bool Simple::make_trump(const Card &upcard, bool is_dealer,
        for(int i = 0;i < int(hand.size());i++){
            isFace = hand[i].is_face();
            isTrump = hand[i].is_trump(upcard.get_suit());
-           std::cout << hand[i] << std::endl;
            if(isFace and isTrump)
            {
                counter+=1;
