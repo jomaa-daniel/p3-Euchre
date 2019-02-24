@@ -43,7 +43,7 @@ std::string Card::get_suit(const std::string &trump) const {
 
 //EFFECTS Returns true if card is a face card (Jack, Queen, King or Ace)
 bool Card::is_face() const {
-	if(get_rank() == RANK_JACK) return true;
+	if(this->get_rank() == RANK_JACK) return true;
 	else if (this->get_rank() == RANK_QUEEN) return true;
 	else if (this->get_rank() == RANK_KING) return true;
 	else if (this->get_rank() == RANK_ACE) return true;

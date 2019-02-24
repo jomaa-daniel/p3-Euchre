@@ -18,8 +18,7 @@ static void cardSort(std::vector<Card> &hand, const std::string &trump){
                 hand[j] = hand[j + 1];
                 hand[j + 1] = temp;
             }
-        }    
-	
+        }    	
 	}
 }
 
@@ -93,13 +92,20 @@ bool Simple::make_trump(const Card &upcard, bool is_dealer,
 
  //HEAVLY Untested
     assert(round == 1 or round == 2);
-
+    bool isFace;
+    bool isTrump;
     if(round == 1){
        int counter = 0;
        for(int i = 0;i < int(hand.size());i++){
-           if(hand[i].is_face() and hand[i].is_trump(upcard.get_suit()))
-               counter++;
+           isFace = hand[i].is_face();
+           isTrump = hand[i].is_trump(upcard.get_suit());
+           std::cout << hand[i] << std::endl;
+           if(isFace and isTrump)
+           {
+               counter+=1;
+           }
        }
+       
        if(counter >= 2){
            order_up_suit = upcard.get_suit();
            return true;
@@ -120,7 +126,7 @@ bool Simple::make_trump(const Card &upcard, bool is_dealer,
                counter++;
            }
        }
-       if(counter >= 2){
+       if(counter >= 1){
            order_up_suit = nextSuit;
            return true;
        }
@@ -207,7 +213,7 @@ Card Simple::play_card(const Card &led_card, const std::string &trump){
     //play the highest card
     if(highestLedIndex != -1){
         playedCard = srtHand[highestLedIndex];
-        srtHand.erase(hand.begin() + highestLedIndex);
+        srtHand.erase(srtHand.begin() + highestLedIndex);
         hand = srtHand;
         return playedCard;
     }
@@ -283,7 +289,13 @@ private:
 
 ////////////////////// HUMAN IMPLEMENTATION ////////////////
 
-
+static  void printHandSorted(const std::vector<Card> &hand, const Player *player){
+    std::vector<Card> sortHand = hand;
+    std::sort(sortHand.begin(), sortHand.end());
+    for(int i = 0; i < int(sortHand.size()); i++){
+        std::cout << "Human player " << player <<  "\'s hand: ["<<i<<"] "<< sortHand[i] << std::endl;
+    }
+}
 
 void Human::add_card(const Card &c)
 {
@@ -295,15 +307,12 @@ void Human::add_card(const Card &c)
 bool Human::make_trump(const Card &upcard, bool is_dealer,
                 int round, std::string &order_up_suit) const
 {
-    std::vector<Card> sortHand = hand;
-
+    
     std::string input;
-    std::sort(sortHand.begin(), sortHand.end());
 
-    for(int i = 0; i < int(sortHand.size()); i++){
-        std::cout << "Human player " << name <<  "\'s hand: ["<<i<<"] "<< sortHand[i] << std::endl;
-    }
-    std::cout << "Human player" << name <<", please enter a suit, or \"pass\":" << std::endl;
+    printHandSorted(hand, this);
+    
+    std::cout << "Human player" << this <<", please enter a suit, or \"pass\":" << std::endl;
     std::cin >> input;
     if(input == "pass")
     {
@@ -333,25 +342,73 @@ bool Human::make_trump(const Card &upcard, bool is_dealer,
     
 }
 
-//add a card, then discard the lowest one even, consider the upcard as
-// smallest
+
 void Human::add_and_discard(const Card &upcard)
 {
-    assert(false);
+    printHandSorted(hand,this);
+    int discard;
+
+    std::cout << "Discard upcard: [-1]\n";
+    
+    std::cout<< "Human player" << this << ", please select a card to discard:";
+    std::cin >> discard;
+
+    if(discard == -1) return;
+
+    hand.erase(hand.begin() + discard);
+
+    add_card(upcard);
+
+
 }
 
 Card Human::lead_card(const std::string &trump)
 {
-    Card a;
-    return a;
+    printHandSorted(hand,this);
+    int input;
+    Card playedCard;
+
+    std::cout << "Human player "<< this <<", please select a card:"<< std::endl;
+    std::cin >> input;
+
+    playedCard = hand[input];
+
+    std::cout << playedCard << " led by " << this << std::endl;
+
+    hand.erase(hand.begin() + input);
+    return playedCard;
+
+       
 }
 
 Card Human::play_card(const Card &led_card, const std::string &trump){
-    Card a;
-    return a;
+    
+    printHandSorted(hand,this);
+    int input;
+    Card playedCard;
+
+    std::cout << "Human player "<< this <<", please select a card:"<< std::endl;
+    std::cin >> input;
+
+    playedCard = hand[input];
+
+    std::cout << playedCard << " played by " << this << std::endl;
+
+    hand.erase(hand.begin() + input);
+    return playedCard;
+    
+}
+
+//EFFECTS: Prints player's name to os
+std::ostream & operator<<(std::ostream &os, const Player &p){
+    
+    os << p.get_name();
+    
+    return os;
 }
 
 //////////////////////// player factory /////////////////////
+
 //  EFFECTS: Returns a pointer to a player with the given name and strategy
 	//To create an object that won't go out of scope when the function returns,
 	//use "return new Simple(name)" or "return new Human(name)"

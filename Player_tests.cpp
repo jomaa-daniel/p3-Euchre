@@ -80,36 +80,154 @@ TEST(test_simple_add_card)
 
 	ASSERT_EQUAL(simple->play_card(jack_spades,"Hearts"),two_spades);
 	delete simple;
-}
+}	
 
-TEST(test_simple_make_trump)
+TEST(test_play_card_lead)
 {
+	Player *simple = Player_factory("Sally", SMPL);
+
+	Card ace_club("Ace", "Club");
+	Card jack_hearts("Jack", "Hearts");
+	Card ace_hearts("Ace", "Hearts");
+	Card jack_clubs("Jack", "Clubs");
+	Card nine_spades("Nine", "Spades");
+
+	Card led_card("Jack", "Diamonds");
 	
+	std::string trump = "Hearts";
+	
+	simple->add_card(ace_club);
+	simple->add_card(jack_hearts);
+	simple->add_card(ace_hearts);
+	simple->add_card(jack_clubs);
+	simple->add_card(nine_spades);
+	//NATURE: 
+	// the led card is the left bower
+	// the highest card should be the right bower, jack hearts
+	ASSERT_EQUAL(simple->play_card(led_card, trump), jack_hearts);
+
+
+	delete simple;
 }
 
-// TEST(test_simple_add_and_discard){
-// 	Player *simple = Player_factory("Sally", SMPL);
-	
-// 	Card two_spades;
-// 	Card jack_hearts("Jack", "Hearts");
-// 	Card queen_diamonds("Queen", "Diamonds");
-// 	Card king_diamonds("King", "Diamonds");
-// 	Card nine_hearts("Nine", "Hearts");
+TEST(test_play_card_trump)
+{
+	Player *simple = Player_factory("Sally", SMPL);
 
-// 	Card upcard("Ace", "Hearts");
-// 	//pick up the upcard and drop two spades
-// 	simple->add_and_discard(upcard);
+	Card five_clubs("Five", "Clubs");
+	Card five_diamonds("Five", "Diamonds");
+	Card eight_hearts("Eight", "Hearts");
+	Card nine_clubs("Nine", "Clubs");
+	Card queen_hearts("Queen", "Hearts");
 
-// 	static_cast<
+	Card ten_spades("Ten","Spades"); //led card
 
-// 	ASSERT_EQUAL(simple->hand[4], two_spades);	
+	std::string trump = "Clubs";
 	
+	simple->add_card(five_clubs);
+	simple->add_card(five_diamonds);
+	simple->add_card(eight_hearts);
+	simple->add_card(nine_clubs);
+	simple->add_card(queen_hearts);
+
+	//NATURE OF TEST:
+	// Testing no leds available, must play highest trump
+	// highest trump is nine clubs
+	// led card is ten spades
+
+	ASSERT_EQUAL(simple->play_card(ten_spades,trump),nine_clubs);
+
+	delete simple;
+}
+
+TEST(test_play_card_bower_edge)
+{
+	Player *simple = Player_factory("Sally", SMPL);
+
+	Card ace_club("Ace", "Club");
+	Card jack_spades("Jack", "Spades");
+	Card ace_hearts("Ace", "Spades");
+	Card jack_clubs("Jack", "Clubs");
+	Card nine_spades("Ten", "Spades");
+
+	Card led_card("Nine", "Spade");
 	
-// }
+	std::string trump = "Spades";
+	
+	simple->add_card(ace_club);
+	simple->add_card(jack_spades);
+	simple->add_card(ace_hearts);
+	simple->add_card(jack_clubs);
+	simple->add_card(nine_spades);
+	//NATURE: 
+	// testing bowers, trump is the spades, right bower is highest
+
+	ASSERT_EQUAL(simple->play_card(led_card, trump), jack_spades);
+
+
+	delete simple;
+}
+
+TEST(test_simple_make_trump_round1_isdealer)
+{
+	Player *simple = Player_factory("Sally", SMPL);
+
+	Card ace_club("Ace", "Club");
+	Card jack_spades("Jack", "Spades");
+	Card ace_hearts("Ace", "Hearts");
+	Card jack_clubs("Jack", "Clubs");
+	Card nine_spades("Queen", "Hearts");
+
+	Card up_card("Nine", "Spades");
+		
+	simple->add_card(ace_club);
+	simple->add_card(jack_spades);
+	simple->add_card(ace_hearts);
+	simple->add_card(jack_clubs);
+	simple->add_card(nine_spades);
+
+	std::string order_up_suit;
+
+	// round 1 there is a dealer, 
+
+	ASSERT_TRUE(simple->make_trump(up_card, true, 1,order_up_suit));
+	ASSERT_EQUAL(order_up_suit, "Spades");
+
+	delete simple;
+}
+
+TEST(aaatest_simple_make_trump_round2_notdealer)
+{
+	Player *simple = Player_factory("Sally", SMPL);
+
+	Card ace_club("Ace", "Hearts");
+	Card jack_spades("Jack", "Hearts");
+	Card ace_hearts("Ace", "Hearts");
+	Card jack_clubs("Queen", "Clubs");
+	Card nine_spades("Queen", "Diamonds");
+
+	Card up_card("Nine", "Spades");
+		
+	simple->add_card(ace_club);
+	simple->add_card(jack_spades);
+	simple->add_card(ace_hearts);
+	simple->add_card(jack_clubs);
+	simple->add_card(nine_spades);
+
+	std::string order_up_suit;
+
+	// round 2 there is NOT a dealer, 
+	simple->make_trump(up_card, false, 2 ,order_up_suit);
+	ASSERT_EQUAL(order_up_suit, "Clubs");
+
+	delete simple;
+}
+
+
 
 TEST(test_simple_lead_card){
 
-Player *simple = Player_factory("BOT", SMPL);
+   Player *simple = Player_factory("BOT", SMPL);
 
 
 	Card ace_spades("Ace", "Club");
@@ -132,14 +250,24 @@ Player *simple = Player_factory("BOT", SMPL);
 	delete simple;
 }
 
-// TEST(test_simple_play_card){
+/////////////////// HUMAN TESTS ////////////////////
+
+TEST(test_human_add_card){
+	Player *human = Player_factory("Bob", "Human");
+
+	Card two_spades;
+	Card led_card("Ace", "Spades");
+
+	std::string trump = "Clubs";
+
+	human->add_card(two_spades);
+
+	ASSERT_EQUAL(human->play_card(led_card, trump),two_spades )
+}
 
 
-// }
 
 
 
-
-// Add more tests here
 
 TEST_MAIN()
