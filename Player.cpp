@@ -20,11 +20,6 @@ static void cardSort(std::vector<Card> &hand, const std::string &trump){
             }
         }    	
 	}
-
-    for(int i = 0; i < int(hand.size()); i++) {
-        std::cout<< hand[i] << std::endl;
-    }
-
 }
 
 

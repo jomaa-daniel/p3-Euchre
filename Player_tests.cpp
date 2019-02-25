@@ -28,18 +28,18 @@ TEST(test_add_card) {
 	delete simple;
 
 	//use hearts as an example trump
-//	play_card(card, "Hearts");
+//	play_card(card, Card::SUIT_HEARTS);
 }
 
 TEST(test_make_trump_round1_nondealer_ordrup) {
 	//this is called upcasting
 	Player *simple = Player_factory("BOT", SMPL);
 
-	Card ace_spades("Ace", "Spades");
-	Card jack_diamonds("Jack", "Diamonds");
-	Card ace_hearts("Ace", "Hearts");
-	Card nine_clubs("Nine", "Clubs");
-	Card jack_spades("Jack", "Spades");
+	Card ace_spades(Card::RANK_ACE, Card::SUIT_SPADES);
+	Card jack_diamonds(Card::RANK_JACK, Card::SUIT_DIAMONDS);
+	Card ace_hearts(Card::RANK_ACE, Card::SUIT_HEARTS);
+	Card nine_clubs(Card::RANK_NINE, Card::SUIT_CLUBS);
+	Card jack_spades(Card::RANK_JACK, Card::SUIT_SPADES);
 
 	
 	//create a player without 2 of same suit
@@ -50,12 +50,12 @@ TEST(test_make_trump_round1_nondealer_ordrup) {
 	simple->add_card(jack_spades);
 
 	
-	Card upcard("King", "Spades");
+	Card upcard(Card::RANK_KING, Card::SUIT_SPADES);
 
 	string order_up_suit;
 
 	ASSERT_TRUE(simple->make_trump(upcard, false, 1, order_up_suit));
-	ASSERT_EQUAL(order_up_suit, "Spades");
+	ASSERT_EQUAL(order_up_suit, Card::SUIT_SPADES);
 	delete simple;
 }
 
@@ -72,11 +72,11 @@ TEST(test_simple_add_card)
 	Player *simple = Player_factory("Sally", SMPL);
 
 	Card two_spades;
-	Card jack_spades("Jack", "Spades");
+	Card jack_spades(Card::RANK_JACK, Card::SUIT_SPADES);
 	simple->add_card(two_spades);
 	
 
-	ASSERT_EQUAL(simple->play_card(jack_spades,"Hearts"),two_spades);
+	ASSERT_EQUAL(simple->play_card(jack_spades,Card::SUIT_HEARTS),two_spades);
 	delete simple;
 }	
 
@@ -84,15 +84,15 @@ TEST(test_play_card_lead)
 {
 	Player *simple = Player_factory("Sally", SMPL);
 
-	Card ace_club("Ace", "Club");
-	Card jack_hearts("Jack", "Hearts");
-	Card ace_hearts("Ace", "Hearts");
-	Card jack_clubs("Jack", "Clubs");
-	Card nine_spades("Nine", "Spades");
+	Card ace_club(Card::RANK_ACE, Card::SUIT_CLUBS);
+	Card jack_hearts(Card::RANK_JACK, Card::SUIT_HEARTS);
+	Card ace_hearts(Card::RANK_ACE, Card::SUIT_HEARTS);
+	Card jack_clubs(Card::RANK_JACK, Card::SUIT_CLUBS);
+	Card nine_spades(Card::RANK_NINE, Card::SUIT_SPADES);
 
-	Card led_card("Jack", "Diamonds");
+	Card led_card(Card::RANK_JACK, Card::SUIT_DIAMONDS);
 	
-	std::string trump = "Hearts";
+	std::string trump = Card::SUIT_HEARTS;
 	
 	
 	simple->add_card(ace_club);
@@ -108,20 +108,44 @@ TEST(test_play_card_lead)
 
 	delete simple;
 }
+TEST(test_play_card_lead_all_trump)
+{
+	Player *simple = Player_factory("Sally", SMPL);
+
+	Card ace_club(Card::RANK_ACE, Card::SUIT_CLUBS);
+	Card two_club(Card::RANK_TWO, Card::SUIT_CLUBS);
+	
+
+	Card led_card(Card::RANK_JACK, Card::SUIT_HEARTS);
+	
+	std::string trump = Card::SUIT_CLUBS;
+	
+	
+	simple->add_card(ace_club);
+	simple->add_card(two_club);
+
+	//NATURE: 
+	// the led card is the left bower
+	// the highest card should be the right bower, jack hearts		
+	ASSERT_EQUAL(simple->lead_card(trump), ace_club);
+
+
+	delete simple;
+}
 
 TEST(test_play_card_trump)
 {
 	Player *simple = Player_factory("Sally", SMPL);
 
-	Card five_clubs("Five", "Clubs");
-	Card five_diamonds("Five", "Diamonds");
-	Card eight_hearts("Eight", "Hearts");
-	Card nine_clubs("Nine", "Clubs");
-	Card queen_hearts("Queen", "Hearts");
+	Card five_clubs(Card::RANK_FIVE, Card::SUIT_CLUBS);
+	Card five_diamonds(Card::RANK_FIVE, Card::SUIT_DIAMONDS);
+	Card eight_hearts(Card::RANK_EIGHT, Card::SUIT_HEARTS);
+	Card nine_clubs(Card::RANK_NINE, Card::SUIT_CLUBS);
+	Card queen_hearts(Card::RANK_QUEEN, Card::SUIT_HEARTS);
 
-	Card ten_spades("Ten","Spades"); //led card
+	Card ten_spades(Card::RANK_TEN,Card::SUIT_SPADES); //led card
 
-	std::string trump = "Clubs";
+	std::string trump = Card::SUIT_CLUBS;
 	
 	simple->add_card(five_clubs);
 	simple->add_card(five_diamonds);
@@ -144,15 +168,15 @@ TEST(test_play_card_bower_edge)
 {
 	Player *simple = Player_factory("Sally", SMPL);
 
-	Card ace_club("Ace", "Club");
-	Card jack_spades("Jack", "Spades");
-	Card ace_hearts("Ace", "Spades");
-	Card jack_clubs("Jack", "Clubs");
-	Card nine_spades("Ten", "Spades");
+	Card ace_club(Card::RANK_ACE, "Club");
+	Card jack_spades(Card::RANK_JACK, Card::SUIT_SPADES);
+	Card ace_hearts(Card::RANK_ACE, Card::SUIT_SPADES);
+	Card jack_clubs(Card::RANK_JACK, Card::SUIT_CLUBS);
+	Card nine_spades(Card::RANK_TEN, Card::SUIT_SPADES);
 
-	Card led_card("Nine", "Spades");
+	Card led_card(Card::RANK_NINE, Card::SUIT_SPADES);
 	
-	std::string trump = "Spades";
+	std::string trump = Card::SUIT_SPADES;
 	
 	simple->add_card(ace_club);
 	simple->add_card(jack_spades);
@@ -172,13 +196,13 @@ TEST(test_simple_make_trump_round1_isdealer)
 {
 	Player *simple = Player_factory("Sally", SMPL);
 
-	Card ace_club("Ace", "Club");
-	Card jack_spades("Jack", "Spades");
-	Card ace_hearts("Ace", "Hearts");
-	Card jack_clubs("Jack", "Clubs");
-	Card nine_spades("Queen", "Hearts");
+	Card ace_club(Card::RANK_ACE, "Club");
+	Card jack_spades(Card::RANK_JACK, Card::SUIT_SPADES);
+	Card ace_hearts(Card::RANK_ACE, Card::SUIT_HEARTS);
+	Card jack_clubs(Card::RANK_JACK, Card::SUIT_CLUBS);
+	Card nine_spades(Card::RANK_QUEEN, Card::SUIT_HEARTS);
 
-	Card up_card("Nine", "Spades");
+	Card up_card(Card::RANK_NINE, Card::SUIT_SPADES);
 		
 	simple->add_card(ace_club);
 	simple->add_card(jack_spades);
@@ -191,7 +215,7 @@ TEST(test_simple_make_trump_round1_isdealer)
 	// round 1 there is a dealer, 
 
 	ASSERT_TRUE(simple->make_trump(up_card, true, 1,order_up_suit));
-	ASSERT_EQUAL(order_up_suit, "Spades");
+	ASSERT_EQUAL(order_up_suit, Card::SUIT_SPADES);
 
 	delete simple;
 }
@@ -200,13 +224,13 @@ TEST(aaatest_simple_make_trump_round2_notdealer)
 {
 	Player *simple = Player_factory("Sally", SMPL);
 
-	Card ace_club("Ace", "Hearts");
-	Card jack_spades("Jack", "Hearts");
-	Card ace_hearts("Ace", "Hearts");
-	Card jack_clubs("Queen", "Clubs");
-	Card nine_spades("Queen", "Diamonds");
+	Card ace_club(Card::RANK_ACE, Card::SUIT_HEARTS);
+	Card jack_spades(Card::RANK_JACK, Card::SUIT_HEARTS);
+	Card ace_hearts(Card::RANK_ACE, Card::SUIT_HEARTS);
+	Card jack_clubs(Card::RANK_QUEEN, Card::SUIT_CLUBS);
+	Card nine_spades(Card::RANK_QUEEN, Card::SUIT_DIAMONDS);
 
-	Card up_card("Nine", "Spades");
+	Card up_card(Card::RANK_NINE, Card::SUIT_SPADES);
 		
 	simple->add_card(ace_club);
 	simple->add_card(jack_spades);
@@ -218,7 +242,7 @@ TEST(aaatest_simple_make_trump_round2_notdealer)
 
 	// round 2 there is NOT a dealer, 
 	simple->make_trump(up_card, false, 2 ,order_up_suit);
-	ASSERT_EQUAL(order_up_suit, "Clubs");
+	ASSERT_EQUAL(order_up_suit, Card::SUIT_CLUBS);
 
 	delete simple;
 }
@@ -230,13 +254,13 @@ TEST(test_simple_lead_card){
    Player *simple = Player_factory("BOT", SMPL);
 
 
-	Card ace_spades("Ace", "Club");
-	Card jack_diamonds("Jack", "Diamonds");
-	Card ace_hearts("Ace", "Hearts");
-	Card nine_clubs("Jack", "Clubs");
-	Card jack_spades("Nine", "Spades");
+	Card ace_spades(Card::RANK_ACE, "Club");
+	Card jack_diamonds(Card::RANK_JACK, Card::SUIT_DIAMONDS);
+	Card ace_hearts(Card::RANK_ACE, Card::SUIT_HEARTS);
+	Card nine_clubs(Card::RANK_JACK, Card::SUIT_CLUBS);
+	Card jack_spades(Card::RANK_NINE, Card::SUIT_SPADES);
 
-	std::string trump = "Hearts";
+	std::string trump = Card::SUIT_HEARTS;
 	
 	simple->add_card(ace_spades);
 	simple->add_card(jack_diamonds);
