@@ -195,13 +195,12 @@ Card Simple::lead_card(const std::string &trump){
 //  The card is removed from the player's hand.
 Card Simple::play_card(const Card &led_card, const std::string &trump){
     int highestLedIndex = -1;
-    int highestTrumpIndex = -1;
     Card playedCard;
 
     std::vector<Card> srtHand = hand;
     cardSort(srtHand,trump);    
     
-    //find the highest non-trump card that is also the led card
+    //find the highest led card
     for(int i = 0; i < int(srtHand.size()); i++)
     {
         if(srtHand[i].get_suit(trump) == led_card.get_suit(trump)){
@@ -217,23 +216,8 @@ Card Simple::play_card(const Card &led_card, const std::string &trump){
         return playedCard;
     }
     
-    //No led cards, must find highest trump if available
 
-    for(int i = 0; i < int(srtHand.size()); i++)
-    {
-        if(srtHand[i].get_suit(trump) == trump){
-            highestTrumpIndex = i;
-            break;
-        }
-    }
-    if(highestTrumpIndex != -1){
-        playedCard = srtHand[highestTrumpIndex];
-        srtHand.erase(srtHand.begin() + highestTrumpIndex);
-        hand = srtHand;
-        return playedCard;
-    }
-
-    //at this point there are no trumps so we need to just return the 
+    // at this point there are no leads, return lowest card
     //  lowest card in the deck
     playedCard = srtHand[srtHand.size() - 1];
     srtHand.erase(srtHand.end());
