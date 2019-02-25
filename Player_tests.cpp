@@ -10,8 +10,6 @@ using namespace std;
 const std::string SMPL = "Simple";
 
 
-
-
 TEST(test_player_get_name) {
     Player * alice = Player_factory("Alice", "Simple");
     ASSERT_EQUAL("Alice", alice->get_name());
