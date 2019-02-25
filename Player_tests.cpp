@@ -94,6 +94,7 @@ TEST(test_play_card_lead)
 	
 	std::string trump = "Hearts";
 	
+	
 	simple->add_card(ace_club);
 	simple->add_card(jack_hearts);
 	simple->add_card(ace_hearts);
