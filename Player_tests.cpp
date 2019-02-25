@@ -133,8 +133,9 @@ TEST(test_play_card_trump)
 	// Testing no leds available, must play highest trump
 	// highest trump is nine clubs
 	// led card is ten spades
+	
 
-	ASSERT_EQUAL(simple->play_card(ten_spades,trump),nine_clubs);
+	ASSERT_EQUAL(simple->play_card(ten_spades,trump),five_diamonds);
 
 	delete simple;
 }
@@ -149,7 +150,7 @@ TEST(test_play_card_bower_edge)
 	Card jack_clubs("Jack", "Clubs");
 	Card nine_spades("Ten", "Spades");
 
-	Card led_card("Nine", "Spade");
+	Card led_card("Nine", "Spades");
 	
 	std::string trump = "Spades";
 	
