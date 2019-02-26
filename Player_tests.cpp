@@ -1,6 +1,7 @@
 // Project UID 1d9f47bfc76643019cfbf037641defe1
 
 #include "Player.h"
+#include "Card.h"
 #include "unit_test_framework.h"
 
 #include <iostream>
@@ -133,36 +134,6 @@ TEST(test_play_card_lead_all_trump)
 	delete simple;
 }
 
-TEST(test_play_card_trump)
-{
-	Player *simple = Player_factory("Sally", SMPL);
-
-	Card five_clubs(Card::RANK_FIVE, Card::SUIT_CLUBS);
-	Card five_diamonds(Card::RANK_FIVE, Card::SUIT_DIAMONDS);
-	Card eight_hearts(Card::RANK_EIGHT, Card::SUIT_HEARTS);
-	Card nine_clubs(Card::RANK_NINE, Card::SUIT_CLUBS);
-	Card queen_hearts(Card::RANK_QUEEN, Card::SUIT_HEARTS);
-
-	Card ten_spades(Card::RANK_TEN,Card::SUIT_SPADES); //led card
-
-	std::string trump = Card::SUIT_CLUBS;
-	
-	simple->add_card(five_clubs);
-	simple->add_card(five_diamonds);
-	simple->add_card(eight_hearts);
-	simple->add_card(nine_clubs);
-	simple->add_card(queen_hearts);
-
-	//NATURE OF TEST:
-	// Testing no leds available, must play highest trump
-	// highest trump is nine clubs
-	// led card is ten spades
-	
-
-	ASSERT_EQUAL(simple->play_card(ten_spades,trump),five_diamonds);
-
-	delete simple;
-}
 
 TEST(test_play_card_bower_edge)
 {
@@ -220,7 +191,7 @@ TEST(test_simple_make_trump_round1_isdealer)
 	delete simple;
 }
 
-TEST(aaatest_simple_make_trump_round2_notdealer)
+TEST(test_simple_make_trump_round2_notdealer)
 {
 	Player *simple = Player_factory("Sally", SMPL);
 
@@ -270,6 +241,38 @@ TEST(test_simple_lead_card){
 
 	ASSERT_EQUAL(simple->play_card(ace_spades,trump),ace_spades);
 
+
+	delete simple;
+}
+
+
+TEST(test_play_card_trump)
+{
+	Player *simple = Player_factory("Sally", SMPL);
+
+	Card five_clubs(Card::RANK_FIVE, Card::SUIT_CLUBS);
+	Card five_diamonds(Card::RANK_FIVE, Card::SUIT_DIAMONDS);
+	Card eight_hearts(Card::RANK_EIGHT, Card::SUIT_HEARTS);
+	Card nine_clubs(Card::RANK_NINE, Card::SUIT_CLUBS);
+	Card queen_hearts(Card::RANK_QUEEN, Card::SUIT_HEARTS);
+
+	Card ten_spades(Card::RANK_TEN,Card::SUIT_SPADES); //led card
+
+	std::string trump = Card::SUIT_CLUBS;
+	
+	simple->add_card(five_clubs);
+	simple->add_card(five_diamonds);
+	simple->add_card(eight_hearts);
+	simple->add_card(nine_clubs);
+	simple->add_card(queen_hearts);
+
+	//NATURE OF TEST:
+	// Testing no leds available, must play highest trump
+	// highest trump is nine clubs
+	// led card is ten spades
+	
+
+	ASSERT_EQUAL(simple->play_card(ten_spades,trump),five_diamonds);
 
 	delete simple;
 }
