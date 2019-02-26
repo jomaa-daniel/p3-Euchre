@@ -94,7 +94,7 @@ Game::Game( std::string &packname,int finalScore_in, bool shuffling_in,
         exit(EXIT_FAILURE);
     }
     
-    deck = Pack::Pack(inFile);
+    deck = Pack(inFile);
 
     finalScore = finalScore_in;
 
@@ -182,7 +182,6 @@ void Game::deal(){
 
 void Game::makingTheTrump(){
     
-    int counter;
     int round = 1;
     bool trumpMade;
     Card upcard = deck.deal_one();
@@ -241,12 +240,12 @@ void Game::playHand(){
 }
 
 int Game::playTrick(){
-
+	return 0;
     
 }
 
 void Game::calcScore(){
-
+	return;
 }
 
 using namespace std;
