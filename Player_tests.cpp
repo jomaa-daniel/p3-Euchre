@@ -242,7 +242,6 @@ TEST(test_simple_lead_card){
 	delete simple;
 }
 
-
 TEST(test_play_card_trump)
 {
 	Player *simple = Player_factory("Sally", SMPL);
@@ -660,6 +659,7 @@ TEST(play_card_right_bower_highest){
 
 	delete simple;
 }
+
 TEST_MAIN()
 
 
