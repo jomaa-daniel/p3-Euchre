@@ -25,25 +25,28 @@ int main(){
 	
 	assert(game.getDealer()->player->get_name() == game.team1.p1->get_name());
 
-	game.deal();
+ 	game.deal();	
 	
 	
-	std::vector<Player *> players = {game.team1.p1, game.team1.p2, game.team2.p1
-	, game.team2.p2};
-	Card two_spades;
+ 	std::vector<Player *> players = {game.team1.p1, game.team1.p2, game.team2.p1
+ 	, game.team2.p2};
+ 	Card two_spades;
 
-	string trump = Card::SUIT_CLUBS;
+ 	string trump = Card::SUIT_CLUBS;
 
-	for(int i = 0; i < 4; i++)
-	{
-		for(int j = 0; j < 5; j++)
-		{
-		    cout <<	players[i]->play_card(two_spades,trump);
-		}
+ 	// for(int i = 0; i < 4; i++)
+ 	// {
+ 	// 	for(int j = 0; j < 5; j++)
+ 	// 	{
+ 	// 	    cout <<	players[i]->play_card(two_spades,trump);
+ 	// 	}
 		
-	}
+ 	// }
 
-
+ cout << game.p1.player->play_card(two_spades,trump);
+//  delete game.p2.player;
+ // delete game.p3.player;
+  //delete game.p4.player;
 
 }
 

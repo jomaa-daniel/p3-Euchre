@@ -5,7 +5,7 @@
             "name": "(lldb) Launch",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/Player_tests.exe",
+            "program": "${workspaceFolder}/euchre_tests.exe",
             "args": [],
             "stopAtEntry": true,
             "cwd": "${workspaceFolder}",
