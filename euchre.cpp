@@ -34,9 +34,7 @@ private:
 public:
     //use command line vargs to construct
     Game(std::string &packname, int finalScore_in, bool shuffling_in, 
-    std::string p1Name, std::string p1_strategy, std::string p2_name,
-    std::string p2_strategy, std::string p3_name, std::string p3_strategy,
-    std::string p4_name, std::string p4_strategy);
+   std::vector<std::string> playerData);
 
 
     //getter functions
@@ -78,9 +76,7 @@ public:
 
 //Use varg to construct
 Game::Game( std::string &packname,int finalScore_in, bool shuffling_in, 
-    std::string p1_name, std::string p1_strategy, std::string p2_name,
-    std::string p2_strategy, std::string p3_name, std::string p3_strategy,
-    std::string p4_name, std::string p4_strategy) 
+    std::vector<std::string> playerData) 
 {
     std::ifstream inFile;
 
@@ -99,12 +95,12 @@ Game::Game( std::string &packname,int finalScore_in, bool shuffling_in,
     shuffling = shuffling_in;
     
     //team 1
-    team1.p1 = Player_factory(p1_name, p1_strategy);
-    team1.p2 = Player_factory(p3_name, p3_strategy);
+    team1.p1 = Player_factory(playerData[0],playerData[1]);
+    team1.p2 = Player_factory(playerData[4],playerData[5]);
 
     //team 2
-    team1.p1 = Player_factory(p2_name, p2_strategy);
-    team2.p2 = Player_factory(p4_name, p4_strategy);
+    team2.p1 = Player_factory(playerData[2],playerData[3]);
+    team2.p2 = Player_factory(playerData[6],playerData[7]);
 
     team1.score = 0;
     team1.trick = 0;
@@ -181,7 +177,7 @@ void Game::deal(){
 void Game::makingTheTrump(){
     
     int round = 1;
-    bool trumpMade;
+    bool trumpMade = false;
     Card upcard = deck.deal_one();
 
     Node isDealer = *dealer;
@@ -248,35 +244,33 @@ void Game::calcScore(){
 
 using namespace std;
 
-int main(int argc, char *argv[])
-{
+// int main(int argc, char *argv[])
+// {
+//     vector<std::string> playerData;
+//     string packfilename = argv[1];
+//     bool shuffling = *argv[2];
+//     int finalScore = *argv[3];
+//     playerData[0] =  argv[4];//p1 name
+//     playerData[1] = argv[5]; //p1 strat
+//     playerData[2] = argv[6]; //p2 name
+//     playerData[3] = argv[7]; //p2 strat
+//     playerData[4] = argv[8]; //p3 name 
+//     playerData[5] = argv[9]; //p3 strat
+//     playerData[6] = argv[10]; //p4 name
+//     playerData[7] = argv[11]; //p4 strat
+//     Game game(packfilename,shuffling,finalScore,playerData);
 
-    string packfilename = argv[1];
-    bool shuffling = *argv[2];
-    int finalScore = *argv[3];
-    string p1_name = argv[4];
-    string p1_strategy = argv[5];
-    string p2_name = argv[6];
-    string p2_strategy = argv[7];
-    string p3_name = argv[8];
-    string p3_strategy = argv[9];
-    string p4_name = argv[10];
-    string p4_strategy = argv[11]; 
-
-
-    Game game(packfilename,shuffling,finalScore,p1_name,p1_strategy,p2_name,p2_strategy,p3_name,p3_strategy,p4_name,p4_strategy);
-
-    while(((game.getTeam(1).score) < game.getfinalScore()) and ((game.getTeam(2).score) < game.getfinalScore()) ){
-        game.deal();
-        game.makingTheTrump();
-        game.playHand();
-        game.calcScore();
-        game.iterateDealer();
+//     while(((game.getTeam(1).score) < game.getfinalScore()) and ((game.getTeam(2).score) < game.getfinalScore()) ){
+//         game.deal();
+//         game.makingTheTrump();
+//         game.playHand();
+//         game.calcScore();
+//         game.iterateDealer();
         
-    }
-    
-    return 0;
-}
+//     }
+
+//     return 0;
+// }
 
 
 

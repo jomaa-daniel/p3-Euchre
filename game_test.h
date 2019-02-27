@@ -19,7 +19,7 @@ struct Node
 
 class Game
 {
-private:
+public:
 
 	teamData team1;
 	teamData team2;
@@ -31,12 +31,10 @@ private:
 	Node *dealer;
 	Node p1, p2, p3, p4;
 
-public:
+
 	//use command line vargs to construct
 	Game(std::string &packname, int finalScore_in, bool shuffling_in,
-		std::string p1Name, std::string p1_strategy, std::string p2_name,
-		std::string p2_strategy, std::string p3_name, std::string p3_strategy,
-		std::string p4_name, std::string p4_strategy);
+		std::vector<std::string> playerData);
 
 
 	//getter functions

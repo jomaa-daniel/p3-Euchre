@@ -27,7 +27,7 @@ static void cardSort(std::vector<Card> &hand, const std::string &trump){
 class Simple: public Player
 {
 private:
-    
+    //make change it
     std::vector<Card> hand;
     std::string name;
 
