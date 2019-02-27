@@ -6,16 +6,10 @@
 
 struct teamData
 {
-    int trick,score;
-    Player *p1,*p2;        
+    int trick,score;       
     bool orderedUp;  
 };
 
-struct Node
-{
-    Player *player;
-    Node *next;
-};
 
 class Game
 {
@@ -28,8 +22,8 @@ private:
     Pack deck;
     std::string trump;
     int finalScore;
-    Node *dealer;
-    Node p1,p2,p3,p4;
+    int dealer;
+    std::vector<Player *> players;
 
 public:
     //use command line vargs to construct
@@ -42,6 +36,8 @@ public:
     int getfinalScore() {return finalScore;}
     std::string getTrump() {return trump;}
 
+    Player * getPlayer(int n){ return players[n];}
+
     teamData getTeam(int n)
     {
         if (n == 1) return team1;
@@ -52,10 +48,19 @@ public:
     
     void deal();
 
-    Node* getDealer() {return dealer;}
+    int getDealer() {return dealer;}
 
     void iterateDealer() {
-        dealer = dealer->next;    
+        
+        if(dealer == 3)
+        {
+            dealer = 0;
+        } 
+        else
+        {
+            dealer++;
+        }
+        
     }
     
     //returns suit of the trump
@@ -95,12 +100,12 @@ Game::Game( std::string &packname,int finalScore_in, bool shuffling_in,
     shuffling = shuffling_in;
     
     //team 1
-    team1.p1 = Player_factory(playerData[0],playerData[1]);
-    team1.p2 = Player_factory(playerData[4],playerData[5]);
+    players[0] = Player_factory(playerData[0],playerData[1]);
+    players[2] = Player_factory(playerData[4],playerData[5]);
 
     //team 2
-    team2.p1 = Player_factory(playerData[2],playerData[3]);
-    team2.p2 = Player_factory(playerData[6],playerData[7]);
+    players[1] = Player_factory(playerData[2],playerData[3]);
+    players[3] = Player_factory(playerData[6],playerData[7]);
 
     team1.score = 0;
     team1.trick = 0;
@@ -111,22 +116,7 @@ Game::Game( std::string &packname,int finalScore_in, bool shuffling_in,
     team1.orderedUp = false;
     team2.orderedUp = false;
 
-    Node p1;
-    Node p2;
-    Node p3;
-    Node p4;
-
-    p1.player = team1.p1;
-    p2.player = team2.p1;
-    p3.player = team1.p2;
-    p4.player = team2.p2;
-
-    p1.next = &p2;
-    p2.next = &p3;
-    p3.next = &p4;
-    p4.next = &p1;
-
-    dealer = &p1;
+    dealer = 0;
 }
 
 Game::~Game()
@@ -138,6 +128,9 @@ void Game::deal(){
     deck.reset();
     if(shuffling) deck.shuffle();
 
+    int cursor = dealer;
+
+
 
     int j = 0;
     
@@ -145,17 +138,19 @@ void Game::deal(){
     for(int x = 0; x < 2; x++)
     {      
         if(x == 1) {
-        for(int i = 0; i < 4; i++)
-        { 
-            //deal three times if even
-            if(i % 2 == 0) j = 3; 
+            for(int i = 0; i < 4; i++)
+            { 
+                //deal three times if even
+                if(i % 2 == 0) j = 3; 
 
-            else j = 2;
+                else j = 2;
 
-            for(int k = 0; k < j; k++)
-                dealer->player->add_card(deck.deal_one());
-            iterateDealer();
-        }
+                for(int k = 0; k < j; k++)
+                    players[cursor]->add_card(deck.deal_one());
+
+                if(cursor == 3) cursor = 0;
+                else cursor++;    
+            }
         
         }
         if(x == 2)
@@ -167,8 +162,12 @@ void Game::deal(){
 
             else j = 3;
 
-            for(int k = 0; k < j; k++)dealer->player->add_card(deck.deal_one());
-              iterateDealer();
+            for(int k = 0; k < j; k++)
+                players[cursor]->add_card(deck.deal_one());
+
+            if(cursor == 3) cursor = 0;
+            else cursor++; 
+              
         }
     }
 }
@@ -176,49 +175,49 @@ void Game::deal(){
 
 void Game::makingTheTrump(){
     
-    int round = 1;
-    bool trumpMade = false;
-    Card upcard = deck.deal_one();
+    // int round = 1;
+    // bool trumpMade = false;
+    // Card upcard = deck.deal_one();
 
-    Node isDealer = *dealer;
+    // Node isDealer = *dealer;
 
-    Node *originalDealer = dealer;
+    // Node *originalDealer = dealer;
 
-    //start at the eldest player
-    iterateDealer();
+    // //start at the eldest player
+    // iterateDealer();
 
-    while(!trumpMade){
+    // while(!trumpMade){
         
-        if(&(isDealer.player) == &(dealer->player)) round++;
+    //     if(&(isDealer.player) == &(dealer->player)) round++;
         
 
-        if(&(isDealer.player) == &(dealer->player))
-        {
-            trumpMade = dealer->player->make_trump(upcard, true, round, trump);
-            if(&(p1.player) == &(dealer->player) or &(p3.player) == &(dealer->player))
-            {
-                team1.orderedUp = true;
-            }
-            else if (&(p2.player) == &(dealer->player) or &(p4.player) == &(dealer->player))
-                team2.orderedUp = true;
-        }
-        else
-        {
-            trumpMade = dealer->player->make_trump(upcard, false, round, trump);
-            if(&(p1.player) == &(dealer->player) or &(p3.player) == &(dealer->player))
-            {
-                team1.orderedUp = true;
-            }
-            else if (&(p2.player) == &(dealer->player) or &(p4.player) == &(dealer->player))
-                team2.orderedUp = true;
-        }
+    //     if(&(isDealer.player) == &(dealer->player))
+    //     {
+    //         trumpMade = dealer->player->make_trump(upcard, true, round, trump);
+    //         if(&(p1.player) == &(dealer->player) or &(p3.player) == &(dealer->player))
+    //         {
+    //             team1.orderedUp = true;
+    //         }
+    //         else if (&(p2.player) == &(dealer->player) or &(p4.player) == &(dealer->player))
+    //             team2.orderedUp = true;
+    //     }
+    //     else
+    //     {
+    //         trumpMade = dealer->player->make_trump(upcard, false, round, trump);
+    //         if(&(p1.player) == &(dealer->player) or &(p3.player) == &(dealer->player))
+    //         {
+    //             team1.orderedUp = true;
+    //         }
+    //         else if (&(p2.player) == &(dealer->player) or &(p4.player) == &(dealer->player))
+    //             team2.orderedUp = true;
+    //     }
         
         
-    }
+    // }
 
-    dealer = originalDealer;
+    // dealer = originalDealer;
 
-    dealer->player->add_and_discard(upcard);
+    // dealer->player->add_and_discard(upcard);
     
 }
 
