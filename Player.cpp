@@ -385,7 +385,7 @@ Card Human::play_card(const Card &led_card, const std::string &trump){
 //EFFECTS: Prints player's name to os
 std::ostream & operator<<(std::ostream &os, const Player &p){
     
-    os << p.get_name();
+    os << (p.get_name());
     
     return os;
 }

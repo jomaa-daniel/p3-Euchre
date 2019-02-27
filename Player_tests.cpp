@@ -3,6 +3,7 @@
 #include "Player.h"
 #include "Card.h"
 #include "unit_test_framework.h"
+#include "fstream"
 
 #include <iostream>
 
@@ -659,6 +660,125 @@ TEST(play_card_right_bower_highest){
 
 	delete simple;
 }
+
+
+//
+
+TEST(add_discard_Lbower_king){
+	Player *simple = Player_factory("Sally", SMPL);
+
+
+	Card king_club(Card::RANK_KING, Card::SUIT_CLUBS);
+
+	simple->add_card(king_club);
+
+
+
+	Card upcard(Card::RANK_JACK,Card::SUIT_SPADES);	
+
+	Card ledcard(Card::RANK_FIVE,Card::SUIT_HEARTS);
+
+	std::string trump = Card::SUIT_CLUBS;
+
+	simple->add_and_discard(upcard);
+	// should stay ace
+
+	ASSERT_EQUAL(simple->play_card(ledcard,trump),upcard);
+
+	delete simple;
+}
+
+TEST(add_discard_Rbower_king){
+	Player *simple = Player_factory("Sally", SMPL);
+
+
+	Card king_club(Card::RANK_KING, Card::SUIT_CLUBS);
+
+	simple->add_card(king_club);
+
+
+
+	Card upcard(Card::RANK_JACK,Card::SUIT_CLUBS);	
+
+	Card ledcard(Card::RANK_FIVE,Card::SUIT_HEARTS);
+
+	std::string trump = Card::SUIT_CLUBS;
+
+	simple->add_and_discard(upcard);
+	// should stay ace
+
+	ASSERT_EQUAL(simple->play_card(ledcard,trump),upcard);
+
+	delete simple;
+}
+
+TEST(add_discard_Lbower_Rbower){
+	Player *simple = Player_factory("Sally", SMPL);
+
+
+	Card king_club(Card::RANK_JACK, Card::SUIT_CLUBS);
+
+	simple->add_card(king_club);
+
+
+
+	Card upcard(Card::RANK_JACK,Card::SUIT_SPADES);	
+
+	Card ledcard(Card::RANK_FIVE,Card::SUIT_HEARTS);
+
+	std::string trump = Card::SUIT_SPADES;
+
+	simple->add_and_discard(upcard);
+	// should stay ace
+
+	ASSERT_EQUAL(simple->play_card(ledcard,trump),upcard);
+
+	delete simple;
+}
+
+TEST(add_discard_tied){
+	Player *simple = Player_factory("Sally", SMPL);
+
+
+	Card king_club(Card::RANK_KING, Card::SUIT_DIAMONDS);
+
+	simple->add_card(king_club);
+
+
+
+	Card upcard(Card::RANK_JACK,Card::SUIT_CLUBS);	
+
+	Card ledcard(Card::RANK_FIVE,Card::SUIT_CLUBS);
+
+	std::string trump = Card::SUIT_CLUBS;
+
+	simple->add_and_discard(upcard);
+	// should stay ace
+
+	ASSERT_EQUAL(simple->play_card(ledcard,trump),upcard);
+
+	delete simple;
+}
+
+
+TEST(output_operator){
+	
+	std::ostringstream outFile;
+
+
+	Player * alice = Player_factory("Alice", "Simple");
+
+	outFile << *alice;
+
+	std::string name = outFile.str();
+
+	
+
+	ASSERT_EQUAL(name,"Alice");
+
+	delete alice;
+}
+
 
 TEST_MAIN()
 
