@@ -17,8 +17,6 @@ struct Node
     Node *next;
 };
 
-
-
 class Game
 {
 private:   
