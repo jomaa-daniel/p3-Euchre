@@ -30,6 +30,7 @@ public:
     Game(std::string &packname, int finalScore_in, bool shuffling_in, 
    std::vector<std::string> playerData);
 
+    Player * getPlayer(int n);
 
     //getter functions
     bool getShuffle() {return shuffling;}
@@ -60,7 +61,6 @@ public:
         }
         
     }
-    Player * getPlayer(int n){ return players[n];}
     //returns suit of the trump
     void makingTheTrump();
     
