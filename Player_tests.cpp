@@ -509,14 +509,14 @@ TEST(making_trump_round2_bower){
 	delete simple;
 }
 
-TEST(lead_card_no_trumps){
+TEST(lead_card_no_trumps_ties){
 	Player *simple = Player_factory("Sally", SMPL);
 
-	Card ace_hearts(Card::RANK_ACE,Card::SUIT_HEARTS);
-	Card jack_hearts(Card::RANK_JACK, Card::SUIT_HEARTS);
-	Card five_hearts(Card::RANK_FIVE, Card::SUIT_HEARTS);
-	Card eight_diamonds(Card::RANK_EIGHT, Card::SUIT_DIAMONDS);
-	Card queen_hearts(Card::RANK_QUEEN, Card::SUIT_HEARTS);
+	Card ace_hearts(Card::RANK_FOUR,Card::SUIT_HEARTS);
+	Card jack_hearts(Card::RANK_THREE, Card::SUIT_HEARTS);
+	Card five_hearts(Card::RANK_TWO, Card::SUIT_HEARTS);
+	Card eight_diamonds(Card::RANK_EIGHT, Card::SUIT_SPADES);
+	Card queen_hearts(Card::RANK_EIGHT, Card::SUIT_DIAMONDS);
 
 
 	simple->add_card(ace_hearts);
@@ -527,7 +527,7 @@ TEST(lead_card_no_trumps){
 
 	std::string trump = Card::SUIT_CLUBS;
 
-	ASSERT_EQUAL(simple->lead_card(trump),five_hearts);
+	ASSERT_EQUAL(simple->lead_card(trump),queen_hearts);
 
 	delete simple;
 }
@@ -558,7 +558,7 @@ TEST(lead_card_trump_and_4_ties){
 TEST(play_card_ties){
 	Player *simple = Player_factory("Sally", SMPL);
 
-	Card ace_hearts(Card::RANK_FIVE,Card::SUIT_DIAMONDS);
+	Card ace_hearts(Card::RANK_KING,Card::SUIT_DIAMONDS);
 	Card jack_hearts(Card::RANK_KING, Card::SUIT_CLUBS);
 	Card five_hearts(Card::RANK_EIGHT, Card::SUIT_CLUBS);
 	Card eight_diamonds(Card::RANK_EIGHT, Card::SUIT_DIAMONDS);
