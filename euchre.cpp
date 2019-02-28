@@ -65,7 +65,7 @@ private:
     std::array<Player *, 4> players; 
 public:
     //use command line vargs to construct
-    Game(istream &packname, int finalScore_in, bool shuffling_in, 
+    Game(istream &packname,  bool shuffling_in, int finalScore_in,
    std::vector<std::string> playerData);
 
 
@@ -129,7 +129,7 @@ public:
 
 
 //Use varg to construct
-Game::Game( istream &packname,int finalScore_in, bool shuffling_in, 
+Game::Game( istream &packname, bool shuffling_in,int finalScore_in, 
     std::vector<std::string> playerData) 
 {
    
@@ -137,6 +137,7 @@ Game::Game( istream &packname,int finalScore_in, bool shuffling_in,
     deck = Pack(packname);
 
     finalScore = finalScore_in;
+
 
     shuffling = shuffling_in;
     
@@ -195,7 +196,6 @@ void Game::deal(){
                 else cursor++;    
             }
         }
-        assert(cursor == dealer + 1);
 
         if(roundOf == 2)
         {
@@ -273,22 +273,16 @@ void Game::makingTheTrump(){
 void Game::playHand(){
     lastTrickWinner = getNextDealer();
 
-    std::cout << "Hand " << handNumber << std::endl;
     for(int i = 0; i < 5; i++)
     {
         playTrick();
 
     }
     iterateDealer();
+   
 }
 
 void Game::playTrick(){
-	
-
-    getPlayer(0)->printHand();
-    getPlayer(1)->printHand();
-    getPlayer(2)->printHand();
-    getPlayer(3)->printHand(); 
 
 
     Card leadCard;
@@ -312,32 +306,34 @@ void Game::playTrick(){
         else cursor++;
         Card playedCard = players[cursor]->play_card(leadCard,trump);
         bundleofPlayerBundles.push_back({playedCard,cursor});
-        cout << playedCard << " played by " << *players[cursor] << endl;
+        cout << playedCard << " played by " << *players[cursor] << "\n";
     }
     
     cardSort(bundleofPlayerBundles, trump, leadCard);
 
     lastTrickWinner = bundleofPlayerBundles[0].player;
 
-    std::cout << *players[lastTrickWinner] << " takes the trick\n";
+    cout << *players[lastTrickWinner] << " takes the trick\n\n";
     
     if(lastTrickWinner % 2)
     {
-        team1.trick++;
+        
+        team2.trick++;
+        
     }    
     else{
-        team2.trick++;
+        team1.trick++;
     }
     
 }
 
 void Game::calcScore(){
-	
+
+    
     if(team1.trick > team2.trick)
     {
 
         cout << *(players[0]) << " and " << *(players[2]) << " win the hand\n";
-
         if(team1.orderedUp){
             if(team1.trick == 3 or team1.trick == 4){
                 team1.score++;
@@ -381,13 +377,17 @@ void Game::calcScore(){
     }
 
     team1.trick = 0;
-    team1.trick = 0;
+    team2.trick = 0;
+    team1.orderedUp = false;
+    team2.orderedUp = false;
+
 }
+
 
 void Game::printScore()
 {
     cout << *(players[0]) << " and " << *(players[2]) << " have " << team1.score << " points\n";
-    cout << *(players[1]) << " and " << *(players[3]) << " have " << team2.score << " points\n";
+    cout << *(players[1]) << " and " << *(players[3]) << " have " << team2.score << " points\n" ;
 
 }
 
@@ -399,7 +399,7 @@ void Game::printWinner()
 
     else
     {
-        cout << *(players[1]) << " and " << *(players[3]) << " win\n";
+        cout << *(players[1]) << " and " << *(players[3]) << " win!\n";
     }
     
 }
@@ -409,7 +409,15 @@ using namespace std;
 
 int main(int argc, char *argv[])
 {
+    for(int i = 0; i < argc; i++)
+    {
+        //std::string arg(argv[i]);
+        cout << argv[i] << " ";
+    }
+    cout << endl;
+    
 
+    int hand = 0;
 
     bool problem = false;
     bool shuffling;
@@ -427,6 +435,7 @@ int main(int argc, char *argv[])
         if(strcmp(argv[i],"Simple") != 0 and strcmp(argv[i], "Human") != 0){
             problem = true;
         } 
+
     }
 
     if(problem)
@@ -434,6 +443,7 @@ int main(int argc, char *argv[])
         cout << "Usage: euchre.exe PACK_FILENAME [shuffle|noshuffle] "
          << "POINTS_TO_WIN NAME1 TYPE1 NAME2 TYPE2 NAME3 TYPE3 "
         << "NAME4 TYPE4" << endl;
+
      return 1;
     }
     
@@ -443,19 +453,21 @@ int main(int argc, char *argv[])
 
     string packfilename = argv[1];
     if(strcmp(argv[2],"shuffle") != 0){
-        shuffling = true;
+        shuffling = false;
     }
-    else shuffling = false;
+    else shuffling = true;
+    
 
-    int finalScore = *argv[3];
-    playerData[0] =  argv[4];//p1 name
-    playerData[1] = argv[5]; //p1 strat
-    playerData[2] = argv[6]; //p2 name
-    playerData[3] = argv[7]; //p2 strat
-    playerData[4] = argv[8]; //p3 name 
-    playerData[5] = argv[9]; //p3 strat
-    playerData[6] = argv[10]; //p4 name
-    playerData[7] = argv[11]; //p4 strat
+    int finalScore = atoi(argv[3]);
+    
+    playerData.push_back(argv[4]);//p1 name
+    playerData.push_back(argv[5]); //p1 strat
+    playerData.push_back(argv[6]); //p2 name
+    playerData.push_back(argv[7]); //p2 strat
+    playerData.push_back(argv[8]); //p3 name 
+    playerData.push_back(argv[9]); //p3 strat
+    playerData.push_back(argv[10]); //p4 name
+    playerData.push_back(argv[11]); //p4 strat
 
 
     std::ifstream inFile;
@@ -471,63 +483,25 @@ int main(int argc, char *argv[])
     Game game(inFile,shuffling,finalScore,playerData);
 
     while(((game.getTeam(1).score) < game.getfinalScore()) and ((game.getTeam(2).score) < game.getfinalScore()) ){
+       
+        cout << "Hand " << hand << endl;
         game.deal();
         game.makingTheTrump();
+       
         game.playHand();
         game.calcScore();       
         
         game.printScore();
+        hand++;
+        
     }
-
+    cout << endl;
     game.printWinner();
 
+    for(int i = 0;i < 4; i++){
+        delete game.getPlayer(i);
+    }
     return 0;
 }
-
-
-// int main(){
-// 	std::vector<string> playerData = {"Bot0", "Simple", "Bot1", "Simple",
-// 	"Bot2", "Simple", "Bot3", "Simple"}; 
-		 
-// 	Player* plr = Player_factory("Sally", "Simple");
-
-	
-//     std::ifstream inFile;
-
-//     inFile.open("pack.in");
-	
-
-//         if(!inFile.is_open())
-//     {
-//         cout << "Error opening "  << endl;
-//         return 1;
-//     }
-    
-// 	Game game(inFile,10, false, playerData);
-
-// 	assert(game.getShuffle() == false);
-// 	assert(game.getfinalScore() == 10);
-// 	assert(plr->get_name() == "Sally");
-// 	assert((game.getPlayer(0)->get_name()) == "Bot0");
-// 	 assert(game.getPlayer(1)->get_name() == "Bot1");
-// 	 assert(game.getPlayer(2)->get_name() == "Bot2");
-// 	 assert(game.getPlayer(3)->get_name() == "Bot3");
-	
-	
-// 	assert((game.getPlayer(game.getDealer()))->get_name() == "Bot0");
-
-//  	game.deal();	
-// 	game.makingTheTrump();
-//     game.playHand();
-//     game.calcScore();
-// 	game.printScore();
-//     game.printWinner();
-    
- 
-
-
-// }
-
-
 
 

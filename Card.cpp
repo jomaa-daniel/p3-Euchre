@@ -182,37 +182,41 @@ bool operator>(const Card &lhs, const Card &rhs)
 //  Does not consider trump.
 bool operator==(const Card &lhs, const Card &rhs)
 {
-	int lhsIndex = 0;
-	int rhsIndex = 0;
-	
-	for(int i = 0; i < NUM_RANKS; i++){
-		if(lhs.get_rank() == RANK_NAMES_BY_WEIGHT[i])
-		lhsIndex = i;
-		
-		if(rhs.get_rank() ==RANK_NAMES_BY_WEIGHT[i])
-		rhsIndex = i;
-	}
-	
-	if(lhsIndex == rhsIndex){
-		int aIndex = 0;
-		int bIndex = 0;
-		
-		for(int i = 0; i < NUM_SUITS; i++){
-			if(lhs.get_suit() == SUIT_NAMES_BY_WEIGHT[i])
-			aIndex = i;
-			else if(rhs.get_suit() == SUIT_NAMES_BY_WEIGHT[i])
-			bIndex = i;
-		}
-
-		if(aIndex == bIndex) return true;
-
-		return false;
-	}
-
-	if(lhsIndex == rhsIndex)
-		return true;
+	if(lhs.get_rank() == rhs.get_rank() and lhs.get_suit() ==rhs.get_suit())return true;
 
 	return false;
+	
+	// int lhsIndex = 0;
+	// int rhsIndex = 0;
+	
+	// for(int i = 0; i < NUM_RANKS; i++){
+	// 	if(lhs.get_rank() == RANK_NAMES_BY_WEIGHT[i])
+	// 	lhsIndex = i;
+		
+	// 	if(rhs.get_rank() ==RANK_NAMES_BY_WEIGHT[i])
+	// 	rhsIndex = i;
+	// }
+	
+	// if(lhsIndex == rhsIndex){
+	// 	int aIndex = 0;
+	// 	int bIndex = 0;
+		
+	// 	for(int i = 0; i < NUM_SUITS; i++){
+	// 		if(lhs.get_suit() == SUIT_NAMES_BY_WEIGHT[i])
+	// 		aIndex = i;
+	// 		else if(rhs.get_suit() == SUIT_NAMES_BY_WEIGHT[i])
+	// 		bIndex = i;
+	// 	}
+
+	// 	if(aIndex == bIndex) return true;
+
+	// 	return false;
+	// }
+
+	// if(lhsIndex == rhsIndex)
+	// 	return true;
+
+	// return false;
 }
 
 //EFFECTS Returns true if lhs is not the same card as rhs.
@@ -314,4 +318,5 @@ bool Card_less(const Card &a, const Card &b, const Card &led_card,
 	return false;
 
 }
+
 

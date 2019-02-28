@@ -90,12 +90,26 @@ TEST(test_operator_equal)
 	ASSERT_TRUE(two_spade == two_spades);
 }
 
+TEST(test_operator_equal_face_cards)
+{
+	Card ace_hearts(Card::RANK_FIVE, Card::SUIT_HEARTS);
+	
+	ASSERT_EQUAL(ace_hearts , ace_hearts);
+}
+
 TEST(test_operator_not_equal)
 {
 	Card two_spades;
 	Card ace_spade(Card::RANK_ACE, Card::SUIT_SPADES);
 
 	ASSERT_TRUE(two_spades != ace_spade);
+}
+
+TEST(test_operator_less_than_same)
+{
+	Card ace_spade(Card::RANK_ACE, Card::SUIT_SPADES);
+
+	ASSERT_TRUE(!(ace_spade < ace_spade))
 }
 
 TEST(test_operator_stream)
