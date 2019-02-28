@@ -446,6 +446,30 @@ void printArg(int argc, char *argv[])
 
 }
 
+bool checkParameters(int argc, char *argv[])
+{
+	string shuffletest = argv[2];
+	bool problem = false;
+
+	if (argc != 12 or *argv[3] < 1 or *argv[3] > 100)
+	{
+		problem = true;
+	}
+	if (shuffletest == "shuffle" and shuffletest == "noshuffle")
+	{
+		problem = true;
+	}
+
+	for (int i = 5; i < 12; i = i + 2) {
+		std::string test = argv[i];
+		if (test == "Simple"  and test == "Human") {
+			problem = true;
+		}
+
+	}
+	return problem;
+}
+
 int main(int argc, char *argv[])
 {
      
@@ -454,24 +478,10 @@ int main(int argc, char *argv[])
 
     bool problem = false;
     bool shuffling;
+	std::string shuffletest = argv[2];
 
-    if(argc != 12 or *argv[3] < 1 or *argv[3] > 100)
-    {
-         problem = true;
-    }
-    std::string shuffletest = argv[2];
-    if( shuffletest == "shuffle" and shuffletest == "noshuffle")
-    {
-       problem = true; 
-    }
-
-    for(int i = 5;i < 12;i = i+2){
-        std::string test = argv[i];
-        if(test == "Simple"  and test == "Human"){
-            problem = true;
-        } 
-
-    }
+	problem = checkParameters(argc, argv);
+    
 
     if(printProblem(problem)) return 1;
     
@@ -479,7 +489,8 @@ int main(int argc, char *argv[])
 
     
     string packfilename = argv[1];
-    
+
+	shuffletest = argv[2];
     if(shuffletest != "shuffle") shuffling = false;
     else shuffling = true;
     
