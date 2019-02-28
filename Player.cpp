@@ -380,7 +380,7 @@ Card Human::lead_card(const std::string &trump)
 
     playedCard = hand[input];
 
-    std::cout << playedCard << " led by " << *this << std::endl;
+
 
     hand.erase(hand.begin() + input);
     return playedCard;
@@ -398,8 +398,6 @@ Card Human::play_card(const Card &led_card, const std::string &trump){
     std::cin >> input;
 
     playedCard = hand[input];
-
-    std::cout << playedCard << " played by " << *this << std::endl;
 
     hand.erase(hand.begin() + input);
     return playedCard;

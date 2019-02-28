@@ -2,6 +2,7 @@
 #include "Pack.h"
 #include <cassert>
 #include "fstream"
+#include <cstring>
 
 using namespace std;
 
@@ -387,7 +388,8 @@ void Game::calcScore(){
 void Game::printScore()
 {
     cout << *(players[0]) << " and " << *(players[2]) << " have " << team1.score << " points\n";
-    cout << *(players[1]) << " and " << *(players[3]) << " have " << team2.score << " points\n" ;
+    cout << *(players[1]) << " and " << *(players[3]) << " have " << team2.score << " points\n";
+    cout<<endl;
 
 }
 
@@ -426,13 +428,15 @@ int main(int argc, char *argv[])
     {
          problem = true;
     }
-    if(strcmp(argv[2],"shuffle") != 0 and strcmp(argv[2], "noshuffle") != 0)
+    std::string shuffletest = argv[2];
+    if( shuffletest == "shuffle" and shuffletest == "noshuffle")
     {
        problem = true; 
     }
 
     for(int i = 5;i < 12;i = i+2){
-        if(strcmp(argv[i],"Simple") != 0 and strcmp(argv[i], "Human") != 0){
+        std::string test = argv[i];
+        if(test == "Simple"  and test == "Human"){
             problem = true;
         } 
 
@@ -450,9 +454,10 @@ int main(int argc, char *argv[])
     
     vector<std::string> playerData;
 
-
+    
     string packfilename = argv[1];
-    if(strcmp(argv[2],"shuffle") != 0){
+    
+    if(shuffletest != "shuffle"){
         shuffling = false;
     }
     else shuffling = true;
@@ -495,7 +500,6 @@ int main(int argc, char *argv[])
         hand++;
         
     }
-    cout << endl;
     game.printWinner();
 
     for(int i = 0;i < 4; i++){
