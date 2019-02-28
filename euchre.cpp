@@ -435,17 +435,21 @@ int checkOpen(ifstream &inFile, std::string &filename)
     return 0;
 }
 
-
-int main(int argc, char *argv[])
+void printArg(int argc, char *argv[])
 {
-     
-for(int i = 0; i < argc; i++)
+    for(int i = 0; i < argc; i++)
     {
         //std::string arg(argv[i]);
         cout << argv[i] << " ";
     }
-    cout << endl;    
+        cout << endl;    
 
+}
+
+int main(int argc, char *argv[])
+{
+     
+    printArg(argc, argv);
     int hand = 0;
 
     bool problem = false;
