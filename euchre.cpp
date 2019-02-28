@@ -522,6 +522,9 @@ int main(int argc, char *argv[])
         
     }
     game.printWinner();
+
+    for(int i = 0; i < 4;i++)delete game.getPlayer(i);
+
     return 0;
 }
 
