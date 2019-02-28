@@ -14,56 +14,43 @@ Pack::Pack() {
   // card objects  
   this->next = 0;
 
-  for(int i = 0; i < NUM_RANKS; i++)
+  // int mcFuckery = 0;
 
-  Card nineSpade(Card::RANK_NINE, Card::SUIT_SPADES); 
-  cards[0] = nineSpade;
-  Card tenSpace(Card::RANK_TEN, Card::SUIT_SPADES); 
-  cards[1] = tenSpace;
-  Card jackSpade(Card::RANK_JACK,Card::SUIT_SPADES);
-  cards[2] = jackSpade;
-  Card queenSpade(Card::RANK_QUEEN, Card::SUIT_SPADES);
-  cards[3] = queenSpade;
-  Card kingSpade(Card::RANK_KING,Card::SUIT_SPADES);
-  cards[4] = kingSpade;
-  Card aceSpade(Card::RANK_ACE, Card::SUIT_SPADES);
-  cards[5] = aceSpade;
-  Card nineHearts(Card::RANK_NINE, Card::SUIT_HEARTS);
-  cards[6] = nineHearts;
-  Card tenHearts(Card::RANK_TEN, Card::SUIT_HEARTS);
-  cards[7] = tenHearts;
-  Card jackHearts(Card::RANK_JACK,Card::SUIT_HEARTS);
-  cards[8] = jackHearts;
-  Card queenHearts(Card::RANK_QUEEN, Card::SUIT_HEARTS);
-  cards[9] = queenHearts;
-  Card kingHearts(Card::RANK_KING,Card::SUIT_HEARTS);
-  cards[10] = kingHearts;
-  Card aceHearts(Card::RANK_ACE, Card::SUIT_HEARTS);
-  cards[11] = aceHearts;
-  Card nineClubs(Card::RANK_NINE, Card::SUIT_CLUBS);
-  cards[12] = nineClubs;
-  Card tenClubs(Card::RANK_TEN, Card::SUIT_CLUBS);
-  cards[13] = tenClubs;
-  Card jackClubs(Card::RANK_JACK,Card::SUIT_CLUBS);
-  cards[14] = jackClubs;
-  Card queenClubs(Card::RANK_QUEEN, Card::SUIT_CLUBS);
-  cards[15] = queenClubs;
-  Card kingClubs(Card::RANK_KING,Card::SUIT_CLUBS);
-  cards[16] = kingClubs;
-  Card aceClubs(Card::RANK_ACE, Card::SUIT_CLUBS);
-  cards[17] = aceClubs;
-  Card nineDiamonds(Card::RANK_NINE, Card::SUIT_DIAMONDS);
-  cards[18] = nineDiamonds;
-  Card tenDiamonds(Card::RANK_TEN, Card::SUIT_DIAMONDS);
-  cards[19] = tenDiamonds;
-  Card jackDiamonds(Card::RANK_JACK,Card::SUIT_DIAMONDS);
-  cards[20] = jackDiamonds;
-  Card queenDiamonds(Card::RANK_QUEEN, Card::SUIT_DIAMONDS);
-  cards[21] = queenDiamonds;
-  Card kingDiamonds(Card::RANK_KING,Card::SUIT_DIAMONDS);
-  cards[22] = kingDiamonds;
-  Card aceDiamonds(Card::RANK_ACE, Card::SUIT_DIAMONDS);
-  cards[23] = aceDiamonds;
+  // for(int i = 0; i < NUM_SUITS; i++){
+  //   for(int k = 0; k < NUM_RANKS; k++){
+  //     std::string rank,suit;
+  //     rank = RANK_NAMES_BY_WEIGHT[k];
+  //     suit = SUIT_NAMES_BY_WEIGHT[i];
+  //     Card push_card(rank, suit);
+  //     cards[mcFuckery] = push_card;
+  //     mcFuckery++;
+  //   }
+  // }
+
+  Card nineSpade(Card::RANK_NINE, Card::SUIT_SPADES); cards[0] = nineSpade;
+  Card tenSpace(Card::RANK_TEN, Card::SUIT_SPADES); cards[1] = tenSpace;
+  Card jackSpade(Card::RANK_JACK,Card::SUIT_SPADES);cards[2] = jackSpade;
+  Card queenSpade(Card::RANK_QUEEN, Card::SUIT_SPADES);cards[3] = queenSpade;
+  Card kingSpade(Card::RANK_KING,Card::SUIT_SPADES);cards[4] = kingSpade;
+  Card aceSpade(Card::RANK_ACE, Card::SUIT_SPADES);cards[5] = aceSpade;
+  Card nineHearts(Card::RANK_NINE, Card::SUIT_HEARTS);cards[6] = nineHearts;
+  Card tenHearts(Card::RANK_TEN, Card::SUIT_HEARTS);cards[7] = tenHearts;
+  Card jackHearts(Card::RANK_JACK,Card::SUIT_HEARTS);cards[8] = jackHearts;
+  Card queenHearts(Card::RANK_QUEEN, Card::SUIT_HEARTS);cards[9] = queenHearts;
+  Card kingHearts(Card::RANK_KING,Card::SUIT_HEARTS);cards[10] = kingHearts;
+  Card aceHearts(Card::RANK_ACE, Card::SUIT_HEARTS);cards[11] = aceHearts;
+  Card nineClubs(Card::RANK_NINE, Card::SUIT_CLUBS);cards[12] = nineClubs;
+  Card tenClubs(Card::RANK_TEN, Card::SUIT_CLUBS);cards[13] = tenClubs;
+  Card jackClubs(Card::RANK_JACK,Card::SUIT_CLUBS);cards[14] = jackClubs;
+  Card queenClubs(Card::RANK_QUEEN, Card::SUIT_CLUBS);cards[15] = queenClubs;
+  Card kingClubs(Card::RANK_KING,Card::SUIT_CLUBS);cards[16] = kingClubs;
+  Card aceClubs(Card::RANK_ACE, Card::SUIT_CLUBS);cards[17] = aceClubs;
+  Card nineDiamonds(Card::RANK_NINE, Card::SUIT_DIAMONDS);cards[18] = nineDiamonds;
+  Card tenDiamonds(Card::RANK_TEN, Card::SUIT_DIAMONDS);cards[19] = tenDiamonds;
+  Card jackDiamonds(Card::RANK_JACK,Card::SUIT_DIAMONDS);cards[20] = jackDiamonds;
+  Card queenDiamonds(Card::RANK_QUEEN, Card::SUIT_DIAMONDS);cards[21] = queenDiamonds;
+  Card kingDiamonds(Card::RANK_KING,Card::SUIT_DIAMONDS);cards[22] = kingDiamonds;
+  Card aceDiamonds(Card::RANK_ACE, Card::SUIT_DIAMONDS);cards[23] = aceDiamonds;
 }
 
 // REQUIRES: pack_input contains a representation of a Pack in the

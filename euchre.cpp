@@ -476,18 +476,13 @@ for(int i = 0; i < argc; i++)
     
     string packfilename = argv[1];
     
-    if(shuffletest != "shuffle"){
-        shuffling = false;
-    }
+    if(shuffletest != "shuffle") shuffling = false;
     else shuffling = true;
     
 
     int finalScore = atoi(argv[3]);
     
-    for(int i = 4; i < 12; i++)
-    {
-        playerData.push_back(argv[i]);
-    }
+    for(int i = 4; i < 12; i++) playerData.push_back(argv[i]);
     
 
     // playerData.push_back(argv[4]);//p1 name
