@@ -296,7 +296,7 @@ private:
 
 ////////////////////// HUMAN IMPLEMENTATION ////////////////
 
-static  void printHandSorted(const std::vector<Card> &hand, const Player *player){
+static  void printHandSorted(const std::vector<Card> &hand,const Player *player){
     std::vector<Card> sortHand = hand;
     std::sort(sortHand.begin(), sortHand.end());
     for(int i = 0; i < int(sortHand.size()); i++){
@@ -354,6 +354,7 @@ bool Human::make_trump(const Card &upcard, bool is_dealer,
 
 void Human::add_and_discard(const Card &upcard)
 {
+    std::sort(hand.begin(), hand.end());
     printHandSorted(hand,this);
     int discard;
 
@@ -373,6 +374,7 @@ void Human::add_and_discard(const Card &upcard)
 
 Card Human::lead_card(const std::string &trump)
 {
+    std::sort(hand.begin(), hand.end());
     printHandSorted(hand,this);
     int input;
     Card playedCard;
@@ -391,7 +393,7 @@ Card Human::lead_card(const std::string &trump)
 }
 
 Card Human::play_card(const Card &led_card, const std::string &trump){
-    
+    std::sort(hand.begin(), hand.end());
     printHandSorted(hand,this);
     int input;
     Card playedCard;

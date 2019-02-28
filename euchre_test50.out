@@ -51,105 +51,106 @@ Human player Cathy's hand: [2] Jack of Clubs
 Human player Cathy's hand: [3] Queen of Spades
 Human player Cathy's hand: [4] King of Spades
 Human player Cathy, please select a card:
-Jack of Clubs played by Cathy
+King of Spades played by Cathy
 Human player Drew's hand: [0] Nine of Hearts
 Human player Drew's hand: [1] Ten of Hearts
 Human player Drew's hand: [2] Queen of Clubs
 Human player Drew's hand: [3] King of Clubs
 Human player Drew's hand: [4] Ace of Spades
 Human player Drew, please select a card:
-King of Clubs played by Drew
+Ace of Spades played by Drew
 Human player Alice's hand: [0] Nine of Diamonds
 Human player Alice's hand: [1] Ten of Diamonds
 Human player Alice's hand: [2] Jack of Hearts
 Human player Alice's hand: [3] Queen of Hearts
 Human player Alice's hand: [4] Ace of Clubs
 Human player Alice, please select a card:
-Jack of Hearts played by Alice
-Alice takes the trick
+Nine of Diamonds played by Alice
+Drew takes the trick
 
-Human player Alice's hand: [0] Nine of Diamonds
-Human player Alice's hand: [1] Ten of Diamonds
+Human player Drew's hand: [0] Nine of Hearts
+Human player Drew's hand: [1] Ten of Hearts
+Human player Drew's hand: [2] Queen of Clubs
+Human player Drew's hand: [3] King of Clubs
+Human player Drew, please select a card:
+King of Clubs led by Drew
+Human player Alice's hand: [0] Ten of Diamonds
+Human player Alice's hand: [1] Jack of Hearts
 Human player Alice's hand: [2] Queen of Hearts
 Human player Alice's hand: [3] Ace of Clubs
 Human player Alice, please select a card:
-Ten of Diamonds led by Alice
+Ace of Clubs played by Alice
 Human player Bob's hand: [0] Nine of Spades
 Human player Bob's hand: [1] Ten of Spades
 Human player Bob's hand: [2] King of Hearts
 Human player Bob's hand: [3] Ace of Hearts
 Human player Bob, please select a card:
-Ace of Hearts played by Bob
+Nine of Spades played by Bob
 Human player Cathy's hand: [0] Nine of Clubs
 Human player Cathy's hand: [1] Ten of Clubs
-Human player Cathy's hand: [2] Queen of Spades
-Human player Cathy's hand: [3] King of Spades
+Human player Cathy's hand: [2] Jack of Clubs
+Human player Cathy's hand: [3] Queen of Spades
 Human player Cathy, please select a card:
-Queen of Spades played by Cathy
-Human player Drew's hand: [0] Nine of Hearts
-Human player Drew's hand: [1] Ten of Hearts
-Human player Drew's hand: [2] Queen of Clubs
-Human player Drew's hand: [3] Ace of Spades
-Human player Drew, please select a card:
-Ten of Hearts played by Drew
-Bob takes the trick
+Jack of Clubs played by Cathy
+Alice takes the trick
 
-Human player Bob's hand: [0] Nine of Spades
-Human player Bob's hand: [1] Ten of Spades
-Human player Bob's hand: [2] King of Hearts
-Human player Bob, please select a card:
-Nine of Spades led by Bob
-Human player Cathy's hand: [0] Nine of Clubs
-Human player Cathy's hand: [1] Ten of Clubs
-Human player Cathy's hand: [2] King of Spades
-Human player Cathy, please select a card:
-King of Spades played by Cathy
-Human player Drew's hand: [0] Nine of Hearts
-Human player Drew's hand: [1] Queen of Clubs
-Human player Drew's hand: [2] Ace of Spades
-Human player Drew, please select a card:
-Ace of Spades played by Drew
-Human player Alice's hand: [0] Nine of Diamonds
-Human player Alice's hand: [1] Queen of Hearts
-Human player Alice's hand: [2] Ace of Clubs
+Human player Alice's hand: [0] Ten of Diamonds
+Human player Alice's hand: [1] Jack of Hearts
+Human player Alice's hand: [2] Queen of Hearts
 Human player Alice, please select a card:
-Nine of Diamonds played by Alice
-Drew takes the trick
-
-Human player Drew's hand: [0] Nine of Hearts
-Human player Drew's hand: [1] Queen of Clubs
-Human player Drew, please select a card:
-Nine of Hearts led by Drew
-Human player Alice's hand: [0] Queen of Hearts
-Human player Alice's hand: [1] Ace of Clubs
-Human player Alice, please select a card:
-Ace of Clubs played by Alice
+Ten of Diamonds led by Alice
 Human player Bob's hand: [0] Ten of Spades
 Human player Bob's hand: [1] King of Hearts
+Human player Bob's hand: [2] Ace of Hearts
 Human player Bob, please select a card:
 Ten of Spades played by Bob
 Human player Cathy's hand: [0] Nine of Clubs
 Human player Cathy's hand: [1] Ten of Clubs
+Human player Cathy's hand: [2] Queen of Spades
+Human player Cathy, please select a card:
+Nine of Clubs played by Cathy
+Human player Drew's hand: [0] Nine of Hearts
+Human player Drew's hand: [1] Ten of Hearts
+Human player Drew's hand: [2] Queen of Clubs
+Human player Drew, please select a card:
+Queen of Clubs played by Drew
+Alice takes the trick
+
+Human player Alice's hand: [0] Jack of Hearts
+Human player Alice's hand: [1] Queen of Hearts
+Human player Alice, please select a card:
+Jack of Hearts led by Alice
+Human player Bob's hand: [0] King of Hearts
+Human player Bob's hand: [1] Ace of Hearts
+Human player Bob, please select a card:
+Ace of Hearts played by Bob
+Human player Cathy's hand: [0] Ten of Clubs
+Human player Cathy's hand: [1] Queen of Spades
 Human player Cathy, please select a card:
 Ten of Clubs played by Cathy
-Drew takes the trick
-
-Human player Drew's hand: [0] Queen of Clubs
+Human player Drew's hand: [0] Nine of Hearts
+Human player Drew's hand: [1] Ten of Hearts
 Human player Drew, please select a card:
-Queen of Clubs led by Drew
+Ten of Hearts played by Drew
+Alice takes the trick
+
 Human player Alice's hand: [0] Queen of Hearts
 Human player Alice, please select a card:
-Queen of Hearts played by Alice
+Queen of Hearts led by Alice
 Human player Bob's hand: [0] King of Hearts
 Human player Bob, please select a card:
 King of Hearts played by Bob
-Human player Cathy's hand: [0] Nine of Clubs
+Human player Cathy's hand: [0] Queen of Spades
 Human player Cathy, please select a card:
-Nine of Clubs played by Cathy
+Queen of Spades played by Cathy
+Human player Drew's hand: [0] Nine of Hearts
+Human player Drew, please select a card:
+Nine of Hearts played by Drew
 Bob takes the trick
 
-Bob and Drew win the hand
-Alice and Cathy have 0 points
-Bob and Drew have 1 points
+Alice and Cathy win the hand
+euchred!
+Alice and Cathy have 2 points
+Bob and Drew have 0 points
 
-Bob and Drew win!
+Alice and Cathy win!

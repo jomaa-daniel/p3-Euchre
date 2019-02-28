@@ -14,6 +14,8 @@ Pack::Pack() {
   // card objects  
   this->next = 0;
 
+  for(int i = 0; i < NUM_RANKS; i++)
+
   Card nineSpade(Card::RANK_NINE, Card::SUIT_SPADES); 
   cards[0] = nineSpade;
   Card tenSpace(Card::RANK_TEN, Card::SUIT_SPADES); 
@@ -26,7 +28,6 @@ Pack::Pack() {
   cards[4] = kingSpade;
   Card aceSpade(Card::RANK_ACE, Card::SUIT_SPADES);
   cards[5] = aceSpade;
-
   Card nineHearts(Card::RANK_NINE, Card::SUIT_HEARTS);
   cards[6] = nineHearts;
   Card tenHearts(Card::RANK_TEN, Card::SUIT_HEARTS);
@@ -39,7 +40,6 @@ Pack::Pack() {
   cards[10] = kingHearts;
   Card aceHearts(Card::RANK_ACE, Card::SUIT_HEARTS);
   cards[11] = aceHearts;
-
   Card nineClubs(Card::RANK_NINE, Card::SUIT_CLUBS);
   cards[12] = nineClubs;
   Card tenClubs(Card::RANK_TEN, Card::SUIT_CLUBS);
@@ -52,7 +52,6 @@ Pack::Pack() {
   cards[16] = kingClubs;
   Card aceClubs(Card::RANK_ACE, Card::SUIT_CLUBS);
   cards[17] = aceClubs;
-
   Card nineDiamonds(Card::RANK_NINE, Card::SUIT_DIAMONDS);
   cards[18] = nineDiamonds;
   Card tenDiamonds(Card::RANK_TEN, Card::SUIT_DIAMONDS);

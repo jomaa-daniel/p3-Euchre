@@ -412,15 +412,39 @@ void Game::printWinner()
 
 using namespace std;
 
-int mainShit(int argc, char *argv[])
+int printProblem(bool prob)
 {
+ if(prob)
+    {
+        cout << "Usage: euchre.exe PACK_FILENAME [shuffle|noshuffle] "
+         << "POINTS_TO_WIN NAME1 TYPE1 NAME2 TYPE2 NAME3 TYPE3 "
+        << "NAME4 TYPE4" << endl;
+
+     return 1;
+    }
+    return 0;
+}
+
+int checkOpen(ifstream &inFile, std::string &filename)
+{
+    if(!inFile.is_open())
+    {
+        cout << "Error opening " << filename << endl;
+        return 1;
+    }
+    return 0;
+}
+
+
+int main(int argc, char *argv[])
+{
+     
 for(int i = 0; i < argc; i++)
     {
         //std::string arg(argv[i]);
         cout << argv[i] << " ";
     }
-    cout << endl;
-    
+    cout << endl;    
 
     int hand = 0;
 
@@ -445,15 +469,7 @@ for(int i = 0; i < argc; i++)
 
     }
 
-    if(problem)
-    {
-        cout << "Usage: euchre.exe PACK_FILENAME [shuffle|noshuffle] "
-         << "POINTS_TO_WIN NAME1 TYPE1 NAME2 TYPE2 NAME3 TYPE3 "
-        << "NAME4 TYPE4" << endl;
-
-     return 1;
-    }
-    
+    if(printProblem(problem)) return 1;
     
     vector<std::string> playerData;
 
@@ -468,25 +484,27 @@ for(int i = 0; i < argc; i++)
 
     int finalScore = atoi(argv[3]);
     
-    playerData.push_back(argv[4]);//p1 name
-    playerData.push_back(argv[5]); //p1 strat
-    playerData.push_back(argv[6]); //p2 name
-    playerData.push_back(argv[7]); //p2 strat
-    playerData.push_back(argv[8]); //p3 name 
-    playerData.push_back(argv[9]); //p3 strat
-    playerData.push_back(argv[10]); //p4 name
-    playerData.push_back(argv[11]); //p4 strat
+    for(int i = 4; i < 12; i++)
+    {
+        playerData.push_back(argv[i]);
+    }
+    
+
+    // playerData.push_back(argv[4]);//p1 name
+    // playerData.push_back(argv[5]); //p1 strat
+    // playerData.push_back(argv[6]); //p2 name
+    // playerData.push_back(argv[7]); //p2 strat
+    // playerData.push_back(argv[8]); //p3 name 
+    // playerData.push_back(argv[9]); //p3 strat
+    // playerData.push_back(argv[10]); //p4 name
+    // playerData.push_back(argv[11]); //p4 strat
 
 
     std::ifstream inFile;
 
     inFile.open(packfilename);
 
-    if(!inFile.is_open())
-    {
-        cout << "Error opening " << packfilename << endl;
-        return 1;
-    }
+    if(checkOpen(inFile, packfilename)) return 1;
 
     Game game(inFile,shuffling,finalScore,playerData);
 
@@ -505,16 +523,7 @@ for(int i = 0; i < argc; i++)
         
     }
     game.printWinner();
-
-    for(int i = 0;i < 4; i++){
-        delete game.getPlayer(i);
-    }
     return 0;
-}
-
-int main(int argc, char *argv[])
-{
-    mainShit(argc, argv);
 }
 
 
