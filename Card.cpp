@@ -116,6 +116,24 @@ bool operator<(const Card &lhs, const Card &rhs)
 			rhIndex = i;
 		}
 	}
+	// checking for D>C>H>S
+
+	if(lhIndex == rhIndex){
+		int aIndex = 0;
+		int bIndex = 0;
+		
+		for(int i = 0; i < NUM_SUITS; i++){
+			if(lhs.get_suit() == SUIT_NAMES_BY_WEIGHT[i])
+			aIndex = i;
+			else if(rhs.get_suit() == SUIT_NAMES_BY_WEIGHT[i])
+			bIndex = i;
+		}
+
+		if(aIndex < bIndex) return true;
+
+		return false;
+	}
+
 
 	if(lhIndex < rhIndex) return true;
 	return false;
@@ -135,6 +153,23 @@ bool operator>(const Card &lhs, const Card &rhs)
 		if(rhs.get_rank() ==RANK_NAMES_BY_WEIGHT[i])
 		rhsIndex = i;
 	}
+	
+	if(lhsIndex == rhsIndex){
+		int aIndex = 0;
+		int bIndex = 0;
+		
+		for(int i = 0; i < NUM_SUITS; i++){
+			if(lhs.get_suit() == SUIT_NAMES_BY_WEIGHT[i])
+			aIndex = i;
+			else if(rhs.get_suit() == SUIT_NAMES_BY_WEIGHT[i])
+			bIndex = i;
+		}
+
+		if(aIndex > bIndex) return true;
+
+		return false;
+	}
+
 	
 	if(lhsIndex > rhsIndex)
 	return true;
@@ -158,6 +193,22 @@ bool operator==(const Card &lhs, const Card &rhs)
 		rhsIndex = i;
 	}
 	
+	if(lhsIndex == rhsIndex){
+		int aIndex = 0;
+		int bIndex = 0;
+		
+		for(int i = 0; i < NUM_SUITS; i++){
+			if(lhs.get_suit() == SUIT_NAMES_BY_WEIGHT[i])
+			aIndex = i;
+			else if(rhs.get_suit() == SUIT_NAMES_BY_WEIGHT[i])
+			bIndex = i;
+		}
+
+		if(aIndex == bIndex) return true;
+
+		return false;
+	}
+
 	if(lhsIndex == rhsIndex)
 		return true;
 

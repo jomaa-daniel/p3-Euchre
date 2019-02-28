@@ -49,6 +49,9 @@ class Player {
 
   // Maximum number of cards in a player's hand
   static const int MAX_HAND_SIZE = 5;
+  
+  //TODO////////////////////remove all this shit
+  virtual void printHand() = 0;
 
   // Needed to avoid some compiler errors
   virtual ~Player() {}

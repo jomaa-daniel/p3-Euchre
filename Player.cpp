@@ -4,6 +4,7 @@
 #include <vector>
 
 
+
 static void cardSort(std::vector<Card> &hand, const std::string &trump){
     
     Card temp;    
@@ -21,7 +22,6 @@ static void cardSort(std::vector<Card> &hand, const std::string &trump){
         }    	
 	}
 }
-
 
 /////////////////////////// SIMPLE PLAYER CLASS //////////////////////////
 class Simple: public Player
@@ -61,6 +61,12 @@ public:
     //  is removed the player's hand.
     Card lead_card(const std::string &trump);
 
+    //Delete this
+
+    void printHand();
+
+    //Delete this
+
     //REQUIRES Player has at least one card, trump is a valid suit
     //EFFECTS  Plays one Card from Player's hand according to their strategy.
     //  The card is removed from the player's hand.
@@ -68,6 +74,14 @@ public:
     
     //TODO Maybe destructor needed
 };
+
+void Simple::printHand(){ 
+    
+    for(int i = 0; i < int(hand.size()); i++){
+        std::cout << hand[i] << std::endl;
+    }
+    std::cout<<std::endl;
+}
 
 /////////////////////////// SIMPLE PLAYER IMPLEMENTATION //////////////////////
 
@@ -79,6 +93,8 @@ void Simple::add_card(const Card &c){
 
     hand.push_back(c);    
 }
+
+
 
 //REQUIRES round is 1 or 2
 //MODIFIES order_up_suit
@@ -217,10 +233,12 @@ Card Simple::play_card(const Card &led_card, const std::string &trump){
     }
     
 
-    // at this point there are no leads, return lowest card
-    //  lowest card in the deck
     playedCard = srtHand[srtHand.size() - 1];
-    srtHand.erase(srtHand.end());
+    
+  
+
+    srtHand.erase(srtHand.begin() + (int(srtHand.size() - 1)));
+    
     hand = srtHand;
     return playedCard;
 
@@ -259,6 +277,12 @@ public:
     //  is removed the player's hand.
     Card lead_card(const std::string &trump);
 
+    //DELETE THIS
+
+    void printHand();
+
+    //DELETE THIS
+
     //REQUIRES Player has at least one card, trump is a valid suit
     //EFFECTS  Plays one Card from Player's hand according to their strategy.
     //  The card is removed from the player's hand.
@@ -276,7 +300,7 @@ static  void printHandSorted(const std::vector<Card> &hand, const Player *player
     std::vector<Card> sortHand = hand;
     std::sort(sortHand.begin(), sortHand.end());
     for(int i = 0; i < int(sortHand.size()); i++){
-        std::cout << "Human player " << player <<  "\'s hand: ["<<i<<"] "<< sortHand[i] << std::endl;
+        std::cout << "Human player " << *player <<  "\'s hand: ["<<i<<"] "<< sortHand[i] << std::endl;
     }
 }
 
@@ -295,7 +319,7 @@ bool Human::make_trump(const Card &upcard, bool is_dealer,
 
     printHandSorted(hand, this);
     
-    std::cout << "Human player" << this <<", please enter a suit, or \"pass\":" << std::endl;
+    std::cout << "Human player " << *this <<", please enter a suit, or \"pass\":" << std::endl;
     std::cin >> input;
     if(input == "pass")
     {
@@ -333,7 +357,7 @@ void Human::add_and_discard(const Card &upcard)
 
     std::cout << "Discard upcard: [-1]\n";
     
-    std::cout<< "Human player" << this << ", please select a card to discard:";
+    std::cout<< "Human player" << *this << ", please select a card to discard:";
     std::cin >> discard;
 
     if(discard == -1) return;
@@ -351,12 +375,12 @@ Card Human::lead_card(const std::string &trump)
     int input;
     Card playedCard;
 
-    std::cout << "Human player "<< this <<", please select a card:"<< std::endl;
+    std::cout << "Human player "<< *this <<", please select a card:"<< std::endl;
     std::cin >> input;
 
     playedCard = hand[input];
 
-    std::cout << playedCard << " led by " << this << std::endl;
+    std::cout << playedCard << " led by " << *this << std::endl;
 
     hand.erase(hand.begin() + input);
     return playedCard;
@@ -370,18 +394,23 @@ Card Human::play_card(const Card &led_card, const std::string &trump){
     int input;
     Card playedCard;
 
-    std::cout << "Human player "<< this <<", please select a card:"<< std::endl;
+    std::cout << "Human player "<< *this <<", please select a card:"<< std::endl;
     std::cin >> input;
 
     playedCard = hand[input];
 
-    std::cout << playedCard << " played by " << this << std::endl;
+    std::cout << playedCard << " played by " << *this << std::endl;
 
     hand.erase(hand.begin() + input);
     return playedCard;
     
 }
 
+
+void Human::printHand()
+{
+    return;
+}
 //EFFECTS: Prints player's name to os
 std::ostream & operator<<(std::ostream &os, const Player &p){
     

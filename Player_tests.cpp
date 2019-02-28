@@ -2,6 +2,7 @@
 
 #include "Player.h"
 #include "Card.h"
+#include "Pack.h"
 #include "unit_test_framework.h"
 #include "fstream"
 
@@ -777,6 +778,42 @@ TEST(output_operator){
 	ASSERT_EQUAL(name,"Alice");
 
 	delete alice;
+}
+
+TEST(aaaaest_drain_hand)
+{
+	Player * player = Player_factory("Alice", "Simple");
+
+	
+	
+	Card nine(Card::RANK_NINE, Card::SUIT_SPADES);
+	Card ten(Card::RANK_TEN, Card::SUIT_SPADES);
+	Card jack(Card::RANK_JACK, Card::SUIT_SPADES);
+	Card queen(Card::RANK_QUEEN, Card::SUIT_HEARTS);
+	Card king(Card::RANK_KING, Card::SUIT_HEARTS);
+
+	Card two_spades;
+	
+	std::string trump = Card::SUIT_CLUBS;
+
+	player->add_card(nine);
+	player->add_card(ten);
+	player->add_card(jack);
+	player->add_card(queen);
+	player->add_card(king);
+	
+	
+	
+	player->printHand();
+
+	
+	ASSERT_EQUAL(player->play_card(two_spades,trump),ten);
+	ASSERT_EQUAL(player->play_card(two_spades,trump),nine);
+	ASSERT_EQUAL(player->play_card(two_spades,trump),queen);
+	ASSERT_EQUAL(player->play_card(two_spades,trump),king);
+	ASSERT_EQUAL(player->play_card(two_spades,trump),jack);
+
+
 }
 
 
