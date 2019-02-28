@@ -353,11 +353,11 @@ TEST(lead_card_almostOnlyTrumps){
 TEST(Lead_card_OnlyTrumps){
 	Player *simple = Player_factory("Sally", SMPL);
 
-	Card ace_hearts(Card::RANK_ACE,Card::SUIT_HEARTS);
-	Card jack_hearts(Card::RANK_JACK, Card::SUIT_HEARTS);
-	Card five_hearts(Card::RANK_FIVE, Card::SUIT_HEARTS);
-	Card eight_hearts(Card::RANK_EIGHT, Card::SUIT_HEARTS);
-	Card queen_hearts(Card::RANK_QUEEN, Card::SUIT_HEARTS);
+	Card ace_hearts(Card::RANK_ACE,Card::SUIT_CLUBS);
+	Card jack_hearts(Card::RANK_JACK, Card::SUIT_CLUBS);
+	Card five_hearts(Card::RANK_FIVE, Card::SUIT_CLUBS);
+	Card eight_hearts(Card::RANK_EIGHT, Card::SUIT_CLUBS);
+	Card queen_hearts(Card::RANK_QUEEN, Card::SUIT_CLUBS);
 
 
 
@@ -367,7 +367,7 @@ TEST(Lead_card_OnlyTrumps){
 	simple->add_card(eight_hearts);
 	simple->add_card(queen_hearts);
 
-	std::string trump = Card::SUIT_HEARTS;
+	std::string trump = Card::SUIT_CLUBS;
 
 	ASSERT_EQUAL(simple->lead_card(trump),jack_hearts);
 
@@ -404,19 +404,19 @@ TEST(Play_card_TrumpsOnly){
 TEST(Making_trump_Fail){
 	Player *simple = Player_factory("Sally", SMPL);
 
-	Card ace_club(Card::RANK_ACE, Card::SUIT_CLUBS);
-	Card jack_spades(Card::RANK_JACK, Card::SUIT_SPADES);
-	Card ace_hearts(Card::RANK_ACE, Card::SUIT_HEARTS);
-	Card jack_clubs(Card::RANK_JACK, Card::SUIT_CLUBS);
-	Card nine_spades(Card::RANK_QUEEN, Card::SUIT_HEARTS);
+	Card a(Card::RANK_ACE, Card::SUIT_CLUBS);
+	Card j(Card::RANK_JACK, Card::SUIT_SPADES);
+	Card ac(Card::RANK_ACE, Card::SUIT_HEARTS);
+	Card ja(Card::RANK_JACK, Card::SUIT_CLUBS);
+	Card n(Card::RANK_QUEEN, Card::SUIT_HEARTS);
 
 	Card up_card(Card::RANK_NINE, Card::SUIT_DIAMONDS);
 
-	simple->add_card(ace_club);
-	simple->add_card(jack_spades);
-	simple->add_card(ace_hearts);
-	simple->add_card(jack_clubs);
-	simple->add_card(nine_spades);
+	simple->add_card(a);
+	simple->add_card(j);
+	simple->add_card(ac);
+	simple->add_card(ja);
+	simple->add_card(n);
 
 	std::string order_up_suit;
 
