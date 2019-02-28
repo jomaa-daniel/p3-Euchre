@@ -9,24 +9,8 @@
   //          in order from lowest to highest rank, and so on.
   // NOTE: The standard order is the same as that in pack.in.
   // NOTE: Do NOT use pack.in in your implementation of this function
-Pack::Pack() {
-  //TODO check to makes sure that there are no memory leaks when creating
-  // card objects  
+Pack::Pack() { 
   this->next = 0;
-
-  // int mcFuckery = 0;
-
-  // for(int i = 0; i < NUM_SUITS; i++){
-  //   for(int k = 0; k < NUM_RANKS; k++){
-  //     std::string rank,suit;
-  //     rank = RANK_NAMES_BY_WEIGHT[k];
-  //     suit = SUIT_NAMES_BY_WEIGHT[i];
-  //     Card push_card(rank, suit);
-  //     cards[mcFuckery] = push_card;
-  //     mcFuckery++;
-  //   }
-  // }
-
   Card nineSpade(Card::RANK_NINE, Card::SUIT_SPADES); cards[0] = nineSpade;
   Card tenSpace(Card::RANK_TEN, Card::SUIT_SPADES); cards[1] = tenSpace;
   Card jackSpade(Card::RANK_JACK,Card::SUIT_SPADES);cards[2] = jackSpade;
