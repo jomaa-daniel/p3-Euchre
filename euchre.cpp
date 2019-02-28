@@ -15,7 +15,8 @@ struct playerBundle{
 // god function
 // modifies: life
 // effects: makes it better
-static void cardSort(std::vector<playerBundle> &hand, const std::string &trump,Card &ledcard){
+static void cardSort(std::vector<playerBundle> &hand, 
+const std::string &trump,Card &ledcard){
     
     Card temp;    
     int temp2;
@@ -387,8 +388,10 @@ void Game::calcScore(){
 
 void Game::printScore()
 {
-    cout << *(players[0]) << " and " << *(players[2]) << " have " << team1.score << " points\n";
-    cout << *(players[1]) << " and " << *(players[3]) << " have " << team2.score << " points\n";
+    cout << *(players[0]) << " and " << *(players[2]) 
+    << " have " << team1.score << " points\n";
+    cout << *(players[1]) << " and " << *(players[3]) 
+    << " have " << team2.score << " points\n";
     cout<<endl;
 
 }
@@ -409,9 +412,9 @@ void Game::printWinner()
 
 using namespace std;
 
-int main(int argc, char *argv[])
+int mainShit(int argc, char *argv[])
 {
-    for(int i = 0; i < argc; i++)
+for(int i = 0; i < argc; i++)
     {
         //std::string arg(argv[i]);
         cout << argv[i] << " ";
@@ -487,7 +490,8 @@ int main(int argc, char *argv[])
 
     Game game(inFile,shuffling,finalScore,playerData);
 
-    while(((game.getTeam(1).score) < game.getfinalScore()) and ((game.getTeam(2).score) < game.getfinalScore()) ){
+    while(((game.getTeam(1).score) < game.getfinalScore()) 
+    and ((game.getTeam(2).score) < game.getfinalScore()) ){
        
         cout << "Hand " << hand << endl;
         game.deal();
@@ -506,6 +510,11 @@ int main(int argc, char *argv[])
         delete game.getPlayer(i);
     }
     return 0;
+}
+
+int main(int argc, char *argv[])
+{
+    mainShit(argc, argv);
 }
 
 

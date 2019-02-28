@@ -300,7 +300,8 @@ static  void printHandSorted(const std::vector<Card> &hand, const Player *player
     std::vector<Card> sortHand = hand;
     std::sort(sortHand.begin(), sortHand.end());
     for(int i = 0; i < int(sortHand.size()); i++){
-        std::cout << "Human player " << *player <<  "\'s hand: ["<<i<<"] "<< sortHand[i] << std::endl;
+        std::cout << "Human player " << *player << 
+         "\'s hand: ["<<i<<"] "<< sortHand[i] << std::endl;
     }
 }
 
@@ -319,7 +320,8 @@ bool Human::make_trump(const Card &upcard, bool is_dealer,
 
     printHandSorted(hand, this);
     
-    std::cout << "Human player " << *this <<", please enter a suit, or \"pass\":" << std::endl;
+    std::cout << "Human player " << *this 
+    <<", please enter a suit, or \"pass\":" << std::endl;
     std::cin >> input;
     if(input == "pass")
     {
