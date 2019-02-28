@@ -167,17 +167,17 @@ TEST(test_simple_make_trump_round1_isdealer)
 {
 	Player *simple = Player_factory("Sally", SMPL);
 
-	Card ace_club(Card::RANK_ACE, Card::SUIT_CLUBS);
-	Card jack_spades(Card::RANK_JACK, Card::SUIT_SPADES);
-	Card ace_hearts(Card::RANK_ACE, Card::SUIT_HEARTS);
+	Card ash_cloob(Card::RANK_ACE, Card::SUIT_CLUBS);
+	Card dickpenis(Card::RANK_JACK, Card::SUIT_SPADES);
+	Card tricktrickboom(Card::RANK_ACE, Card::SUIT_HEARTS);
 	Card jack_clubs(Card::RANK_JACK, Card::SUIT_CLUBS);
 	Card nine_spades(Card::RANK_QUEEN, Card::SUIT_HEARTS);
 
 	Card up_card(Card::RANK_NINE, Card::SUIT_SPADES);
 
-	simple->add_card(ace_club);
-	simple->add_card(jack_spades);
-	simple->add_card(ace_hearts);
+	simple->add_card(ash_cloob);
+	simple->add_card(dickpenis);
+	simple->add_card(tricktrickboom);
 	simple->add_card(jack_clubs);
 	simple->add_card(nine_spades);
 
@@ -247,17 +247,17 @@ TEST(test_simple_lead_card){
 TEST(test_play_card_trump)
 {
 	Player *simple = Player_factory("Sally", SMPL);
-	Card five_clubs(Card::RANK_FIVE, Card::SUIT_CLUBS);
+	Card five_bbb(Card::RANK_FIVE, Card::SUIT_CLUBS);
 	Card five_diamonds(Card::RANK_FIVE, Card::SUIT_DIAMONDS);
-	Card eight_hearts(Card::RANK_EIGHT, Card::SUIT_HEARTS);
+	Card eight_aaa(Card::RANK_EIGHT, Card::SUIT_HEARTS);
 	Card nine_clubs(Card::RANK_NINE, Card::SUIT_CLUBS);
 	Card queen_hearts(Card::RANK_QUEEN, Card::SUIT_HEARTS);
 
 	Card ten_spades(Card::RANK_TEN,Card::SUIT_SPADES); //led card
 	std::string trump = Card::SUIT_CLUBS;
-	simple->add_card(five_clubs);
+	simple->add_card(five_bbb);
 	simple->add_card(five_diamonds);
-	simple->add_card(eight_hearts);
+	simple->add_card(eight_aaa);
 	simple->add_card(nine_clubs);
 	simple->add_card(queen_hearts);
 
